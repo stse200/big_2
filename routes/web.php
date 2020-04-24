@@ -13,11 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get("home", "GameController@home");
+
+Route::get("/", "GameController@home");
 Route::post("game", "GameController@game");
 Route::post("deal", "GameController@deal");
 Route::post("play", "GameController@play");

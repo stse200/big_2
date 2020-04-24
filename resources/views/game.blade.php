@@ -251,10 +251,19 @@ $("#introduction").on("click", function(){
   color: #ffffff;
 }
 
+#exit{
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #d9182b;
+  font-size: 14pt;
+  padding: 3px;
+}
+
 button{
   border: none;
   text-decoration: none;
   outline: none;
+  cursor: pointer;
 }
 
 </style>
@@ -273,7 +282,7 @@ button{
   @endif
 
 
-  <a style="position: absolute;right: 5px;" href="{{action("GameController@home")}}">Exit</a>
+  <a id="exit" style="position: absolute;right: 5px;" href="{{action("GameController@home")}}">Exit</a>
 
   <br><br>
   <div class="player_names">
@@ -332,7 +341,7 @@ button{
     @endif
   </div>
 
-  <div class="played_notification">someone played</div>
+  <div class="played_notification"></div>
   <div class="played_cards">
 
   </div>
