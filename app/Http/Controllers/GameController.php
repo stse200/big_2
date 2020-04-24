@@ -16,15 +16,14 @@ class GameController extends Controller
   }
   //shows game view
   public function game(Request $request){
-
-
-
-
     $keys = ["Stephen" => "botw link", "Chiming" => "chairman", "Brandon" => "front row", "Chiyung" => "papa soy"];
 
     if(in_array($request->input("game_key"), $keys)){
+      //ASSERT: valid key
       $player_name = array_keys($keys, $request->input("game_key"))[0];
-      return view("game", compact("player_name"));
+      $player_number = $request->input("player_number");
+      $is_admin = ($player_number == 1);
+      return view("game", compact("player_name", "player_number", "is_admin"));
     }
     else{
       return redirect("home");

@@ -5,7 +5,7 @@
 <script>
   Echo.channel('deal_cards').listen('DealCards', (e) => {set_hand(e.deck);
   });
-  Echo.channel('play_cards').listen('PlayCards', (e) => {console.log(e.cards_played);
+  Echo.channel('play_cards').listen('PlayCards', (e) => {set_played_cards(e.cards_played);
   });
 </script>
 
@@ -37,8 +37,9 @@ $("#deal").on("click", function(){
 //POST: sets the players hands to 13 cards from teh deck
 function set_hand(deck){
   var my_hand = [];
+  var player_number = $("#player_number").html();
 
-  for(var i = 1; i < 14; i++){
+  for(var i = (((player_number - 1) * 13)); i < (13 + ((player_number - 1) * 13)); i++){
     my_hand.push(deck[i]);
   }
 
@@ -64,6 +65,13 @@ $("img").on("click", function(){
   }
 });
 
+
+function set_played_cards(played_cards){
+  $(".played_cards").empty();
+  for (var i = 0; i < played_cards.length; i++){
+    $(".played_cards").append("<img draggable=\"false\" class=\"played_card\" src=\"cards/" + played_cards[i].toString() + ".png\">");
+  }
+}
 
 
 
@@ -117,6 +125,15 @@ $("#play").on("click", function(){
   width: 7.5%;
 }
 
+.played_card{
+  width: 7.5%;
+}
+
+.played_cards{
+  text-align: center;
+  top: 70%;
+}
+
 .card:hover{
   position: relative;
   top: -10px;
@@ -139,15 +156,22 @@ $("#play").on("click", function(){
 @endsection
 
 @section("content")
+  <div id="player_number" style="display: none">{{$player_number}}</div>
 
-    <span>Welcome to big 2 {{$player_name}}!</span>
-    <button id="play">Play</button>
+  <span>Welcome to big 2 {{$player_name}}!</span>
+  <button id="play">Play</button>
+
+  @if($is_admin)
     <button id="deal">Deal</button>
-    <a href="{{action("GameController@home")}}">Exit</a>
+  @endif
 
-    <div style="text-align:center">
-      <div class="hand">
-        <!--Cards Here-->
-      </div>
+  <a href="{{action("GameController@home")}}">Exit</a>
+  <div class="played_cards">
+
+  </div>
+  <div style="text-align:center">
+    <div class="hand">
+      <!--Cards Here-->
     </div>
+  </div>
 @endsection
