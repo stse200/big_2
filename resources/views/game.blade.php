@@ -3,11 +3,21 @@
 @section("javascript")
 <script src="{{asset('js/app.js')}}"></script>
 <script>
-  Echo.channel('table').listen('DealCards', (e) => {set_hand(e.deck);
+  Echo.channel('table').listen('DealCards', (e) => {set_hand(e.deck);$(".num_cards").html(13);
   });
-  Echo.channel('table').listen('PlayCards', (e) => {set_played_cards(e.cards_played);
+  Echo.channel('table').listen('PlayCards', (e) => {
+    set_played_cards(e.cards_played);
+    var curr_num_cards = $("#p_cards_" + e.player_number.toString()).html();
+    $("#p_cards_" + e.player_number.toString()).html(curr_num_cards - e.cards_played.length);
+    var last_player = $("#p_name_" + e.player_number.toString()).html();
+    if (last_player == null){
+      $(".played_notification").html("You played:");
+    }
+    else{
+      $(".played_notification").html(last_player + " played:");
+    }
   });
-  Echo.channel('table').listen('IntroduceMyself', (e) => {$("#p_" + e.my_number.toString()).html(e.my_name);
+  Echo.channel('table').listen('IntroduceMyself', (e) => {$("#p_name_" + e.my_number.toString()).html(e.my_name);
   });
   Echo.channel('table').listen('CommandIntroduction', (e) => {introduce_myself();
   });
@@ -82,36 +92,38 @@ function set_played_cards(played_cards){
 
 
 
-$("#play").on("click", function(){
+$("#play").on("click", function(){play_cards();});
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+        play_cards();
+    }
+}
 
+function play_cards(){
+  if($(".card_selected").length > 0){
   //get value of cards played and hide played cards
-  var cards_played = [];
+    var cards_played = [];
 
-  var all = $(".card_selected").map(function() {
-    cards_played.push($(this).attr("card"));
-    $(this).hide();
-    $(this).addClass("card");
-    $(this).removeClass("card_selected");
-  });
-
-
-
-
-  $.ajaxSetup({
-      headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-  });
-
-    $.ajax({
-      type:"POST",
-      url:"/play",
-      data:{_token: '<?php echo csrf_token() ?>', played: cards_played},
-
+    var all = $(".card_selected").map(function() {
+      cards_played.push($(this).attr("card"));
+      $(this).hide();
+      $(this).addClass("card");
+      $(this).removeClass("card_selected");
+    });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
     });
 
+      $.ajax({
+        type:"POST",
+        url:"/play",
+        data:{_token: '<?php echo csrf_token() ?>', player_number: $("#player_number").html(), played: cards_played},
 
-});
+      });
+    }
+}
 
 
 function introduce_myself(){
@@ -154,9 +166,19 @@ $("#introduction").on("click", function(){
 
 .hand{
   position: absolute;
-  bottom: 10px;
+  bottom: 60px;
   text-align: center;
   width: 99%;
+}
+
+#play{
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  left: 0px;
+  background-color: #888888;
+  height: 50px;
+  font-size: 20pt;
 }
 
 .card{
@@ -172,6 +194,7 @@ $("#introduction").on("click", function(){
   position: absolute;
   text-align: center;
   top: 25%;
+  width: 98%;
 }
 
 .card:hover{
@@ -206,6 +229,34 @@ $("#introduction").on("click", function(){
   text-align: center;
 }
 
+.num_cards{
+  text-align: center;
+}
+
+.played_notification{
+  position: absolute;
+  text-align: center;
+  top: 20%;
+  width: 98%;
+}
+
+#deal{
+  background-color: #128c25;
+  font-size: 14pt;
+}
+
+#introduction{
+  background-color: #12418c;
+  font-size: 14pt;
+  color: #ffffff;
+}
+
+button{
+  border: none;
+  text-decoration: none;
+  outline: none;
+}
+
 </style>
 @endsection
 
@@ -216,36 +267,80 @@ $("#introduction").on("click", function(){
 @section("content")
   <div id="player_number" style="display: none">{{$player_number}}</div>
 
-  <span>Welcome to big 2 {{$player_name}}!</span>
-  <button id="play">Play</button>
-
   @if($is_admin)
     <button id="deal">Deal</button>
     <button id="introduction">Introduce Everyone</button>
   @endif
 
 
-  <a href="{{action("GameController@home")}}">Exit</a>
+  <a style="position: absolute;right: 5px;" href="{{action("GameController@home")}}">Exit</a>
 
   <br><br>
   <div class="player_names">
     @if($player_number == 1)
-      <span class="left_player" id="p_4">4</span><div class="top_player" id="p_3">3</div><span class="right_player" id="p_2">2</span>
+      <div class="right_player" id="p_2">
+        <div id="p_name_2">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_2"></div>
+      </div>
+      <div class="top_player" id="p_3">
+        <div id="p_name_3">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_3"></div>
+      </div>
+      <div class="left_player" id="p_4">
+        <div id="p_name_4">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_4"></div>
+      </div>
     @elseif ($player_number == 2)
-      <span class="left_player" id="p_1">1</span><div class="top_player" id="p_4">4</div><span class="right_player" id="p_3">3</span>
+      <div class="right_player" id="p_3">
+        <div id="p_name_3">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_3"></div>
+      </div>
+      <div class="top_player" id="p_4">
+        <div id="p_name_4">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_4"></div>
+      </div>
+      <div class="left_player" id="p_1">
+        <div id="p_name_1">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_1"></div>
+      </div>
     @elseif ($player_number == 3)
-      <span class="left_player" id="p_2">2</span><div class="top_player" id="p_1">1</div><span class="right_player" id="p_4">4</span>
+      <div class="right_player" id="p_4">
+        <div id="p_name_4">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_4"></div>
+      </div>
+      <div class="top_player" id="p_1">
+        <div id="p_name_1">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_1"></div>
+      </div>
+      <div class="left_player" id="p_2">
+        <div id="p_name_2">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_2"></div>
+      </div>
     @elseif ($player_number == 4)
-      <span class="left_player" id="p_3">3</span><div class="top_player" id="p_2">2</div><span class="right_player" id="p_1">1</span>
+      <div class="right_player" id="p_1">
+        <div id="p_name_1">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_1"></div>
+      </div>
+      <div class="top_player" id="p_2">
+        <div id="p_name_2">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_2"></div>
+      </div>
+      <div class="left_player" id="p_3">
+        <div id="p_name_3">Waiting for player...</div>
+        <div class="num_cards" id="p_cards_3"></div>
+      </div>
     @endif
   </div>
 
+  <div class="played_notification">someone played</div>
   <div class="played_cards">
 
   </div>
+
   <div style="text-align:center">
     <div class="hand">
       <!--Cards Here-->
     </div>
+    <button id="play">Play</button>
   </div>
 @endsection

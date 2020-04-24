@@ -43,7 +43,7 @@ class GameController extends Controller
 
   //aJax call to handle playing cards. Will proadcast cards played to other players
   public function play(Request $request){
-    event(new \App\Events\PlayCards($request->input("played")));
+    event(new \App\Events\PlayCards($request->input("played"), $request->input("player_number")));
   }
 
   public function introduce_myself(Request $request){
