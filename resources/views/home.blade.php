@@ -9,7 +9,6 @@
   Enter Game Key: <input type="password" name="game_key">
   Enter player number: <input type="text" name="player_number">
   <input type="submit">
-  {{$test}}
 </form>
 
 @endsection

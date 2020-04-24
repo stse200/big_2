@@ -10,22 +10,18 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class RespondIntroduction implements ShouldBroadcast
+class CommandIntroduction implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $my_number;
-    public $my_name;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($my_number, $my_name)
+    public function __construct()
     {
-        $this->my_number = $my_number;
-        $this->my_name = $my_name;
+
     }
 
     /**

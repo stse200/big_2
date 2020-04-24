@@ -12,11 +12,10 @@ class GameController extends Controller
   //Shows home screen
   public function home(){
 
-    return view("home", compact("test"));
+    return view("home");
   }
   //shows game view
   public function game(Request $request){
-    $test += 1;
     $keys = ["Stephen" => "hero of trains", "Chiming" => "chairman", "Brandon" => "front row", "Chiyung" => "papa soy", "Link" => "hero of hyrule"];
 
     if(in_array($request->input("game_key"), $keys)){
@@ -27,7 +26,7 @@ class GameController extends Controller
       return view("game", compact("player_name", "player_number", "is_admin"));
     }
     else{
-      return redirect("home", compact("test"));
+      return redirect("home");
     }
   }
 
@@ -51,8 +50,8 @@ class GameController extends Controller
     event(new \App\Events\IntroduceMyself($request->input("my_number"), $request->input("my_name")));
   }
 
-  public function respond_introduction(Request $request){
-    event(new \App\Events\RespondIntroduction($request->input("my_number"), $request->input("my_name")));
+  public function command_introduction(Request $request){
+    event(new \App\Events\CommandIntroduction());
   }
 
 }

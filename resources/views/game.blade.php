@@ -7,7 +7,9 @@
   });
   Echo.channel('table').listen('PlayCards', (e) => {set_played_cards(e.cards_played);
   });
-  Echo.channel('table').listen('IntroduceMyself', (e) => {console.log(e.my_number);console.log(e.my_name);
+  Echo.channel('table').listen('IntroduceMyself', (e) => {$("#p_" + e.my_number.toString()).html(e.my_name);
+  });
+  Echo.channel('table').listen('CommandIntroduction', (e) => {introduce_myself();
   });
 
 </script>
@@ -15,11 +17,7 @@
 
 <script>
 
-function sleep(seconds){
-  return new Promise(resolve => setTimeout(resolve, seconds * 1000));
-}
 
-introduce_myself();
 
 for(var i = 1; i < 14; i++){
   $(".hand").append("<img draggable=\"false\" id=\"slot" + i.toString() + "\" class=\"card\">");
@@ -114,10 +112,7 @@ $("#play").on("click", function(){
 
 
 });
-while(true){
-  sleep(2);
-  console.log(1);
-}
+
 
 function introduce_myself(){
   //ask for players
@@ -134,6 +129,20 @@ function introduce_myself(){
 
     });
 }
+
+$("#introduction").on("click", function(){
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+
+    $.ajax({
+      type:"POST",
+      url:"/command_introduction",
+      data:{_token: '<?php echo csrf_token() ?>'},
+    });
+});
 
 
 </script>
@@ -160,8 +169,9 @@ function introduce_myself(){
 }
 
 .played_cards{
+  position: absolute;
   text-align: center;
-  top: 70%;
+  top: 25%;
 }
 
 .card:hover{
@@ -176,6 +186,24 @@ function introduce_myself(){
   width: 7.5%;
   position: relative;
   top: -50px;
+}
+
+
+
+.left_player{
+  position: absolute;
+  top: 50%;
+}
+
+.right_player{
+  position: absolute;
+  top: 50%;
+  right: 0px;
+}
+
+.top_player{
+  left: 50%;
+  text-align: center;
 }
 
 </style>
@@ -193,9 +221,25 @@ function introduce_myself(){
 
   @if($is_admin)
     <button id="deal">Deal</button>
+    <button id="introduction">Introduce Everyone</button>
   @endif
 
+
   <a href="{{action("GameController@home")}}">Exit</a>
+
+  <br><br>
+  <div class="player_names">
+    @if($player_number == 1)
+      <span class="left_player" id="p_4">4</span><div class="top_player" id="p_3">3</div><span class="right_player" id="p_2">2</span>
+    @elseif ($player_number == 2)
+      <span class="left_player" id="p_1">1</span><div class="top_player" id="p_4">4</div><span class="right_player" id="p_3">3</span>
+    @elseif ($player_number == 3)
+      <span class="left_player" id="p_2">2</span><div class="top_player" id="p_1">1</div><span class="right_player" id="p_4">4</span>
+    @elseif ($player_number == 4)
+      <span class="left_player" id="p_3">3</span><div class="top_player" id="p_2">2</div><span class="right_player" id="p_1">1</span>
+    @endif
+  </div>
+
   <div class="played_cards">
 
   </div>
