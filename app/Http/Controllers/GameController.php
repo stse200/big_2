@@ -12,11 +12,12 @@ class GameController extends Controller
   //Shows home screen
   public function home(){
 
-    return view("home");
+    return view("home", compact("test"));
   }
   //shows game view
   public function game(Request $request){
-    $keys = ["Stephen" => "botw link", "Chiming" => "chairman", "Brandon" => "front row", "Chiyung" => "papa soy"];
+    $test += 1;
+    $keys = ["Stephen" => "hero of trains", "Chiming" => "chairman", "Brandon" => "front row", "Chiyung" => "papa soy", "Link" => "hero of hyrule"];
 
     if(in_array($request->input("game_key"), $keys)){
       //ASSERT: valid key
@@ -26,7 +27,7 @@ class GameController extends Controller
       return view("game", compact("player_name", "player_number", "is_admin"));
     }
     else{
-      return redirect("home");
+      return redirect("home", compact("test"));
     }
   }
 
@@ -44,6 +45,14 @@ class GameController extends Controller
   //aJax call to handle playing cards. Will proadcast cards played to other players
   public function play(Request $request){
     event(new \App\Events\PlayCards($request->input("played")));
+  }
+
+  public function introduce_myself(Request $request){
+    event(new \App\Events\IntroduceMyself($request->input("my_number"), $request->input("my_name")));
+  }
+
+  public function respond_introduction(Request $request){
+    event(new \App\Events\RespondIntroduction($request->input("my_number"), $request->input("my_name")));
   }
 
 }

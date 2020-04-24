@@ -3,15 +3,23 @@
 @section("javascript")
 <script src="{{asset('js/app.js')}}"></script>
 <script>
-  Echo.channel('deal_cards').listen('DealCards', (e) => {set_hand(e.deck);
+  Echo.channel('table').listen('DealCards', (e) => {set_hand(e.deck);
   });
-  Echo.channel('play_cards').listen('PlayCards', (e) => {set_played_cards(e.cards_played);
+  Echo.channel('table').listen('PlayCards', (e) => {set_played_cards(e.cards_played);
   });
+  Echo.channel('table').listen('IntroduceMyself', (e) => {console.log(e.my_number);console.log(e.my_name);
+  });
+
 </script>
 
 
 <script>
 
+function sleep(seconds){
+  return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+}
+
+introduce_myself();
 
 for(var i = 1; i < 14; i++){
   $(".hand").append("<img draggable=\"false\" id=\"slot" + i.toString() + "\" class=\"card\">");
@@ -106,6 +114,28 @@ $("#play").on("click", function(){
 
 
 });
+while(true){
+  sleep(2);
+  console.log(1);
+}
+
+function introduce_myself(){
+  //ask for players
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+
+    $.ajax({
+      type:"POST",
+      url:"/introduce_myself",
+      data:{_token: '<?php echo csrf_token() ?>', my_number: {{$player_number}}, my_name: "{{$player_name}}"},
+
+    });
+}
+
+
 </script>
 
 @endsection

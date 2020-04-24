@@ -33,6 +33,6 @@ class DealCards implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('deal_cards');
+        return new Channel('table');
     }
 }
