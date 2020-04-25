@@ -16,14 +16,38 @@ class GameController extends Controller
   }
   //shows game view
   public function game(Request $request){
-    $keys = ["Stephen" => "hero of trains", "Chiming" => "chairman", "Brandon" => "front row", "Chiyung" => "papa soy", "Link" => "hero of hyrule", "smeel fest" => "Ethan"];
+    //game keys and names
+    $keys = ["Stephen" => "botw link", "Chiming" => "chairman", "Brandon" => "front row", "Chiyung" => "papa soy", "Link" => "hero of hyrule", "Ethan" => "grab fest"];
 
+    //check for valid game key
     if(in_array($request->input("game_key"), $keys)){
       //ASSERT: valid key
       $player_name = array_keys($keys, $request->input("game_key"))[0];
       $player_number = $request->input("player_number");
       $is_admin = ($player_number == 1);
-      return view("game", compact("player_name", "player_number", "is_admin"));
+
+      //set other player positions
+      if($player_number == 1){
+        $right_player = 2;
+        $top_player = 3;
+        $left_player = 4;
+      }
+      elseif($player_number == 2) {
+        $right_player = 3;
+        $top_player = 4;
+        $left_player = 1;
+      }
+      elseif($player_number == 3) {
+        $right_player = 4;
+        $top_player = 1;
+        $left_player = 2;
+      }
+      else{
+        $right_player = 1;
+        $top_player = 2;
+        $left_player = 3;
+      }
+      return view("game", compact("player_name", "player_number", "is_admin", "right_player", "top_player", "left_player"));
     }
     else{
       return redirect("/");

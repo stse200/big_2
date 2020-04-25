@@ -319,59 +319,18 @@ button{
 
   <br><br>
   <div class="player_names">
-    @if($player_number == 1)
-      <div class="right_player" id="p_2">
-        <div id="p_name_2">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_2"></div>
-      </div>
-      <div class="top_player" id="p_3">
-        <div id="p_name_3">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_3"></div>
-      </div>
-      <div class="left_player" id="p_4">
-        <div id="p_name_4">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_4"></div>
-      </div>
-    @elseif ($player_number == 2)
-      <div class="right_player" id="p_3">
-        <div id="p_name_3">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_3"></div>
-      </div>
-      <div class="top_player" id="p_4">
-        <div id="p_name_4">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_4"></div>
-      </div>
-      <div class="left_player" id="p_1">
-        <div id="p_name_1">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_1"></div>
-      </div>
-    @elseif ($player_number == 3)
-      <div class="right_player" id="p_4">
-        <div id="p_name_4">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_4"></div>
-      </div>
-      <div class="top_player" id="p_1">
-        <div id="p_name_1">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_1"></div>
-      </div>
-      <div class="left_player" id="p_2">
-        <div id="p_name_2">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_2"></div>
-      </div>
-    @elseif ($player_number == 4)
-      <div class="right_player" id="p_1">
-        <div id="p_name_1">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_1"></div>
-      </div>
-      <div class="top_player" id="p_2">
-        <div id="p_name_2">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_2"></div>
-      </div>
-      <div class="left_player" id="p_3">
-        <div id="p_name_3">Waiting for player...</div>
-        <div class="num_cards" id="p_cards_3"></div>
-      </div>
-    @endif
+    <div class="right_player" id="p_{{$right_player}}">
+      <div id="p_name_{{$right_player}}">Waiting for player...</div>
+      <div class="num_cards" id="p_cards_{{$right_player}}"></div>
+    </div>
+    <div class="top_player" id="p_{{$top_player}}">
+      <div id="p_name_{{$top_player}}">Waiting for player...</div>
+      <div class="num_cards" id="p_cards_{{$top_player}}"></div>
+    </div>
+    <div class="left_player" id="p_{{$left_player}}">
+      <div id="p_name_{{$left_player}}">Waiting for player...</div>
+      <div class="num_cards" id="p_cards_{{$left_player}}"></div>
+    </div>
   </div>
 
   <div class="played_notification"></div>
