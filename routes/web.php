@@ -21,3 +21,4 @@ Route::post("deal", "GameController@deal");
 Route::post("play", "GameController@play");
 Route::post("introduce_myself", "GameController@introduce_myself");
 Route::post("command_introduction", "GameController@command_introduction");
+Route::post("pass", "GameController@pass");

@@ -16,7 +16,7 @@ class GameController extends Controller
   }
   //shows game view
   public function game(Request $request){
-    $keys = ["Stephen" => "hero of trains", "Chiming" => "chairman", "Brandon" => "front row", "Chiyung" => "papa soy", "Link" => "hero of hyrule"];
+    $keys = ["Stephen" => "hero of trains", "Chiming" => "chairman", "Brandon" => "front row", "Chiyung" => "papa soy", "Link" => "hero of hyrule", "smeel fest" => "Ethan"];
 
     if(in_array($request->input("game_key"), $keys)){
       //ASSERT: valid key
@@ -26,7 +26,7 @@ class GameController extends Controller
       return view("game", compact("player_name", "player_number", "is_admin"));
     }
     else{
-      return redirect("home");
+      return redirect("/");
     }
   }
 
@@ -52,6 +52,10 @@ class GameController extends Controller
 
   public function command_introduction(Request $request){
     event(new \App\Events\CommandIntroduction());
+  }
+
+  public function pass(Request $request){
+    event(new \App\Events\Pass($request->input("player_number")));
   }
 
 }

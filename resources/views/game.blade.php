@@ -21,6 +21,15 @@
   });
   Echo.channel('table').listen('CommandIntroduction', (e) => {introduce_myself();
   });
+  Echo.channel('table').listen('Pass', (e) => {
+    var last_player = $("#p_name_" + e.player_number.toString()).html();
+    if (last_player == null){
+      $(".played_notification").html("You passed:");
+    }
+    else{
+      $(".played_notification").html(last_player + " passed:");
+    }
+  });
 
 </script>
 
@@ -156,6 +165,20 @@ $("#introduction").on("click", function(){
     });
 });
 
+$("#pass").on("click", function(){
+  $.ajaxSetup({
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+  });
+
+    $.ajax({
+      type:"POST",
+      url:"/pass",
+      data:{_token: '<?php echo csrf_token() ?>', player_number: $("#player_number").html()},
+    });
+});
+
 
 </script>
 
@@ -174,9 +197,9 @@ $("#introduction").on("click", function(){
 #play{
   position: absolute;
   bottom: 0px;
-  width: 100%;
+  width: 50%;
   left: 0px;
-  background-color: #888888;
+  background-color: #2dbf17;
   height: 50px;
   font-size: 20pt;
 }
@@ -266,6 +289,16 @@ button{
   cursor: pointer;
 }
 
+#pass{
+  position: absolute;
+  bottom: 0px;
+  width: 50%;
+  right: 0px;
+  background-color: #f0851a;
+  height: 50px;
+  font-size: 20pt;
+}
+
 </style>
 @endsection
 
@@ -351,5 +384,6 @@ button{
       <!--Cards Here-->
     </div>
     <button id="play">Play</button>
+    <button id="pass">Pass</button>
   </div>
 @endsection
