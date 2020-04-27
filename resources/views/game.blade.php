@@ -35,27 +35,44 @@
   Echo.channel('table').listen('Pass', (e) => {
     set_turn_notifyer(parseInt(e.player_number));
     show_pass(e.player_number.toString());
-
+    check_new_round(parseInt(e.player_number));
   });
 
 </script>
 
 
 <script>
+var passes = 0;
 init();
+
+//PRE: just_passed is the player ID of the player who just passed
+//POST: lightens center card is starting new round (all other players pass)
+function check_new_round(just_passed){
+  if(just_passed == 4){
+    just_passed = 0;
+  }
+  if(passes == 3){
+    //ASSERT: starting new round
+    $(".played_cards").css("opacity", "0.5");
+    passes = 0;
+  }
+}
 
 //PRE: just_passed is the player id the player who passed
 //POST: displays "passed" under the appropriate player.
 function show_pass(just_passed){
-
+    passes += 1;
     $("#p_pass_" + just_passed).css("display", "grid");
 
 }
 
 //PRE: none
 //POST: hides all "passed" notifications under player names
+//      puts center card at full opacity
 function hide_passes(){
   $(".pass").css("display", "none");
+  $(".played_cards").css("opacity", "1");
+  passes = 0;
 }
 
 //PRE: just_played is an int from 1 to 4 representing the player number of
