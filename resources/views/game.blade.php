@@ -8,6 +8,7 @@
     set_hand(e.deck);
     $(".num_cards").html(13);
     reset_turn_notifyer();
+    hide_passes();
   });
   Echo.channel('table').listen('PlayCards', (e) => {
     //set center cards to played cards

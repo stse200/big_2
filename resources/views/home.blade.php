@@ -5,6 +5,16 @@
 
 <script>
 
+//prevent enter from submitting form
+$(document).ready(function() {
+  $(window).keydown(function(event){
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      return false;
+    }
+  });
+});
+
 $(".player_number_option").on("click", function(){
   $(".player_number_option").removeClass("selected");
   $(this).addClass("selected");
