@@ -3,10 +3,16 @@
 @section("javascript")
 <script src="{{asset('js/app.js')}}"></script>
 <script>
-  Echo.channel('table').listen('DealCards', (e) => {set_hand(e.deck);$(".num_cards").html(13);
+  Echo.channel('table').listen('DealCards', (e) => {
+    set_hand(e.deck);
+    $(".num_cards").html(13);
+    reset_turn_notifyer();
   });
   Echo.channel('table').listen('PlayCards', (e) => {
+    //set center cards to played cards
     set_played_cards(e.cards_played);
+
+    //set played cards notification
     var curr_num_cards = $("#p_cards_" + e.player_number.toString()).html();
     $("#p_cards_" + e.player_number.toString()).html(curr_num_cards - e.cards_played.length);
     var last_player = $("#p_name_" + e.player_number.toString()).html();
@@ -16,12 +22,16 @@
     else{
       $(".played_notification").html(last_player + " played:");
     }
+    set_turn_notifyer(parseInt(e.player_number));
+    //set change background if it is your turn
+
   });
   Echo.channel('table').listen('IntroduceMyself', (e) => {$("#p_name_" + e.my_number.toString()).html(e.my_name);
   });
   Echo.channel('table').listen('CommandIntroduction', (e) => {introduce_myself();
   });
   Echo.channel('table').listen('Pass', (e) => {
+    set_turn_notifyer(parseInt(e.player_number));
     var last_player = $("#p_name_" + e.player_number.toString()).html();
     if (last_player == null){
       $(".played_notification").html("You passed:");
@@ -35,15 +45,41 @@
 
 
 <script>
+init();
 
+//PRE: just_played is an int from 1 to 4 representing the player number of
+//     the player that just played
+//POST: If this player is next, sets hand background color to green
+function set_turn_notifyer(just_played){
+  if(just_played == 4){
+    just_played = 0;
+  }
+  if((just_played + 1) == $("#player_number").html()){
+    //ASSERT: it is my turn
+    console.log("my turn");
+    $(".hand").css("background-color", "#139e06");
+  }
+}
 
+//PRE: none
+//POST: sets this player's hand background color to white
+function reset_turn_notifyer(){
+  $(".hand").css("background-color", "#ffffff");
+}
 
-for(var i = 1; i < 14; i++){
-  $(".hand").append("<img draggable=\"false\" id=\"slot" + i.toString() + "\" class=\"card\">");
+//PRE: none
+//POST: initialized page
+function init(){
+  for(var i = 1; i < 14; i++){
+    $(".hand").append("<img draggable=\"false\" id=\"slot" + i.toString() + "\" class=\"card\">");
+  }
 }
 
 
 $("#deal").on("click", function(){
+  //clear center cards
+  $(".played_cards").empty();
+
   $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -131,6 +167,8 @@ function play_cards(){
         data:{_token: '<?php echo csrf_token() ?>', player_number: $("#player_number").html(), played: cards_played},
 
       });
+      //change backgroun color back
+      reset_turn_notifyer();
     }
 }
 
@@ -166,6 +204,7 @@ $("#introduction").on("click", function(){
 });
 
 $("#pass").on("click", function(){
+  reset_turn_notifyer();
   $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -189,9 +228,11 @@ $("#pass").on("click", function(){
 
 .hand{
   position: absolute;
-  bottom: 60px;
+  bottom: 50px;
   text-align: center;
-  width: 99%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  left: 0px;
 }
 
 #play{
@@ -202,6 +243,7 @@ $("#pass").on("click", function(){
   background-color: #2dbf17;
   height: 50px;
   font-size: 20pt;
+  padding: 0px;
 }
 
 .card{
@@ -217,7 +259,8 @@ $("#pass").on("click", function(){
   position: absolute;
   text-align: center;
   top: 25%;
-  width: 98%;
+  width: 97%;
+  padding: 10px;
 }
 
 .card:hover{
@@ -299,6 +342,10 @@ button{
   font-size: 20pt;
 }
 
+.pass{
+  display: none;
+}
+
 </style>
 @endsection
 
@@ -320,15 +367,15 @@ button{
   <br><br>
   <div class="player_names">
     <div class="right_player" id="p_{{$right_player}}">
-      <div id="p_name_{{$right_player}}">Waiting for player...</div>
+      <div id="p_name_{{$right_player}}">Waiting for player...</div><span id="p_pass_{{$right_player}}" class="pass">Passed</span>
       <div class="num_cards" id="p_cards_{{$right_player}}"></div>
     </div>
     <div class="top_player" id="p_{{$top_player}}">
-      <div id="p_name_{{$top_player}}">Waiting for player...</div>
+      <div id="p_name_{{$top_player}}">Waiting for player...</div><span id="p_pass_{{$top_player}}" class="pass">Passed</span>
       <div class="num_cards" id="p_cards_{{$top_player}}"></div>
     </div>
     <div class="left_player" id="p_{{$left_player}}">
-      <div id="p_name_{{$left_player}}">Waiting for player...</div>
+      <div id="p_name_{{$left_player}}">Waiting for player...</div><span id="p_pass_{{$left_player}}" class="pass">Passed</span>
       <div class="num_cards" id="p_cards_{{$left_player}}"></div>
     </div>
   </div>
