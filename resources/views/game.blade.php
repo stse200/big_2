@@ -9,6 +9,7 @@
     $(".num_cards").html(13);
     reset_turn_notifyer();
     hide_passes();
+    $(".played_cards").css("opacity", "1");
   });
   Echo.channel('table').listen('PlayCards', (e) => {
     //set center cards to played cards
@@ -79,13 +80,17 @@ function hide_passes(){
 //     the player that just played
 //POST: If this player is next, sets hand background color to green
 function set_turn_notifyer(just_played){
+  $(".p_name").removeClass("current_turn");
   if(just_played == 4){
     just_played = 0;
   }
   if((just_played + 1) == $("#player_number").html()){
     //ASSERT: it is my turn
-    console.log("my turn");
     $(".hand").css("background-color", "#139e06");
+  }
+  else{
+    //ASSERT: Not my turn. showing whose turn it is
+    $("#p_name_" + (just_played + 1)).addClass("current_turn");
   }
 }
 
@@ -268,7 +273,7 @@ $("#pass").on("click", function(){
   bottom: 0px;
   width: 50%;
   left: 0px;
-  background-color: #2dbf17;
+  background-color: #139e06;
   height: 50px;
   font-size: 20pt;
   padding: 0px;
@@ -367,7 +372,8 @@ button{
   bottom: 0px;
   width: 50%;
   right: 0px;
-  background-color: #f0851a;
+  background-color: #a31414;
+  color: #ffffff;
   height: 50px;
   font-size: 20pt;
 }
@@ -384,6 +390,9 @@ button{
   color: #ffffff;
   background-color: #a31414;
   text-align: center;
+}
+.current_turn{
+  background-color: #139e06;
 }
 
 </style>
@@ -407,17 +416,17 @@ button{
   <br><br>
   <div class="player_names">
     <div class="player right_player" id="p_{{$right_player}}">
-      <div id="p_name_{{$right_player}}">Waiting for player...</div>
+      <div class="p_name" id="p_name_{{$right_player}}">Waiting for player...</div>
       <div class="num_cards" id="p_cards_{{$right_player}}"></div>
       <div id="p_pass_{{$right_player}}" class="pass">Passed</div>
     </div>
     <div class="player top_player" id="p_{{$top_player}}">
-      <div id="p_name_{{$top_player}}">Waiting for player...</div>
+      <div class="p_name" id="p_name_{{$top_player}}">Waiting for player...</div>
       <div class="num_cards" id="p_cards_{{$top_player}}"></div>
       <div id="p_pass_{{$top_player}}" class="pass">Passed</div>
     </div>
     <div class="player left_player" id="p_{{$left_player}}">
-      <div id="p_name_{{$left_player}}">Waiting for player...</div>
+      <div class="p_name" id="p_name_{{$left_player}}">Waiting for player...</div>
       <div class="num_cards" id="p_cards_{{$left_player}}"></div>
       <div id="p_pass_{{$left_player}}" class="pass">Passed</div>
     </div>
