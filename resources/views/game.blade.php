@@ -17,6 +17,7 @@
     hide_passes();
     reset_turn_notifyer();
     set_turn_notifyer(parseInt(e.player_number));
+    played = e.cards_played;
 
     //set played cards notification
     var curr_num_cards = $("#p_cards_" + e.player_number.toString()).html();
@@ -43,6 +44,7 @@
 
 
 <script>
+var played = [];
 var passes = 0;
 init();
 
@@ -54,6 +56,7 @@ function check_new_round(just_passed){
   }
   if(passes == 3){
     //ASSERT: starting new round
+    played = [];
     $(".played_cards").css("opacity", "0.5");
     passes = 0;
   }
@@ -166,9 +169,7 @@ function set_played_cards(played_cards){
   }
 }
 
-
-
-
+//play cards when click button or spacebar
 $("#play").on("click", function(){play_cards();});
 document.body.onkeyup = function(e){
     if(e.keyCode == 32){
@@ -176,22 +177,88 @@ document.body.onkeyup = function(e){
     }
 }
 
+function validate_single(cards_played){
+
+}
+
+function validate_pair(cards_played){
+
+}
+
+function validate_three(cards_played){
+
+}
+
+function validate_five(cards_played){
+
+}
+
+//PRE: card is a nint from 1 to 52 representing a card in a deck of cards
+//POST: returns an int from 0 to 3 representing the suite of card.
+//      0=diamonds, 1=clubs, 2=hearts, 3=spades
+function get_card_suit(card){
+  var result = ((card - 1) % 4);
+  return result;
+}
+
+//PRE: card is a nint from 1 to 52 representing a card in a deck of cards
+//POST: returns a number from 0 to 12 representing card's numerical value
+function get_card_number(card){
+  var result = Math.floor((card - 1) / 4);
+  return result;
+}
+
+//PRE: cards_played is the array of ints representing the cards played
+//POST: returns true if cards_played can be played with the current cards in the center
+function validate_play(cards_played){
+  is_valid = true;
+
+  if(cards_played.length == 1){
+    //ASSERT: single card played
+    is_valid = validate_single(cards_played);
+  }
+  else if(cards_played.length == 2){
+    //ASSERT: pair played
+    is_valid = validate_pair(cards_played);
+  }
+  else if(cards_played.length == 3){
+    //ASSERT: 3 of a kind played
+    is_valid = validate_three(cards_played);
+  }
+  else if(cards_played.length == 5){
+    //ASSERT: 5 card played
+    is_valid = validate_five(cards_played);
+  }
+  else{
+    //ASSERT: invalid number of cards played
+    is_valid = false;
+  }
+
+  return is_valid;
+}
+
+//plays selected cards
 function play_cards(){
   if($(".card_selected").length > 0){
   //get value of cards played and hide played cards
     var cards_played = [];
 
-    var all = $(".card_selected").map(function() {
+    //get all cards selected
+    $(".card_selected").map(function() {
       cards_played.push($(this).attr("card"));
-      $(this).hide();
-      $(this).addClass("card");
-      $(this).removeClass("card_selected");
     });
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
+    if(validate_play(cards_played)){
+      //ASSERT: cards_played is a valid play
+      $(".card_selected").map(function() {
+        $(this).hide();
+        $(this).addClass("card");
+        $(this).removeClass("card_selected");
+      });
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
 
       $.ajax({
         type:"POST",
@@ -202,6 +269,7 @@ function play_cards(){
       //change backgroun color back
       reset_turn_notifyer();
     }
+  }
 }
 
 
