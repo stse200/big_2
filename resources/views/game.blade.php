@@ -178,16 +178,22 @@ document.body.onkeyup = function(e){
     }
 }
 
+//PRE: cards_played is the array of ints representing the cards played
+//POST: returns true is cards_played is a valid single that can be played, false otherwise
 function validate_single(cards_played){
   return ((played.length == 0) || (cards_played[0] > played[0]));
 }
 
+//PRE: cards_played is the array of ints representing the cards played
+//POST: returns true is cards_played is a valid pair that can be played, false otherwise
 function validate_pair(cards_played){
   valid_pair = (get_card_number(cards_played[0]) == get_card_number(cards_played[1]));
 
   return ((valid_pair) && ((played.length == 0) || (cards_played[1] > played[1])));
 }
 
+//PRE: cards_played is the array of ints representing the cards played
+//POST: returns true is cards_played is a valid three of a kind that can be played, false otherwise
 function validate_three(cards_played){
   valid_three = ((get_card_number(cards_played[0]) == get_card_number(cards_played[1])) &&
                  (get_card_number(cards_played[0]) == get_card_number(cards_played[2])));
@@ -195,7 +201,11 @@ function validate_three(cards_played){
   return ((valid_three) && ((played.length == 0) || (cards_played[2] > played[2])));
 }
 
+//PRE: cards_played is the array of ints representing the cards played
+//POST: returns true is cards_played is a valid five card that can be played, false otherwise
 function validate_five(cards_played){
+  var type = get_five_card_type(cards_played);
+  console.log(type);
 
 }
 
@@ -212,6 +222,56 @@ function get_card_suit(card){
 function get_card_number(card){
   var result = Math.floor((card - 1) / 4);
   return result;
+}
+
+//PRE: cards_played is the array of ints representing the cards played
+//POST: returns an int from -1 to 4 representing the five cards hand it is
+//      -1=invalid, 0=straight, 1=fluish, 2=full house, 3=4 of a kind, 5=straight flush
+function get_five_card_type(cards_played){
+  var result = -1;
+
+  var numbers = [];
+  var suits = [];
+
+  for(var i = 0; i < cards_played.length; i++){
+    numbers.push(get_card_number(cards_played[i]));
+    suits.push(get_card_suit(cards_played[i]));
+  }
+
+
+  //straight test
+  is_straight = true;
+  var previous = numbers[0];
+  var curr_card = 1
+  while((is_straight) && (curr_card < cards_played.length)){
+
+    is_straight = ((previous + 1) == numbers[curr_card]);
+    previous = numbers[curr_card];
+    curr_card += 1;
+  }
+
+  //flush test
+  var is_flush = suits.every( (val, i, arr) => val === arr[0] );
+
+  //full house test
+
+
+  //four of a kind
+
+  if((is_straight) && (is_flush)){
+    //ASSERT: is stright flush
+    result = 4
+  }
+  else if(is_straight){
+    //ASSERT: is straight
+    result = 0;
+  }
+  else if(is_flush){
+    //ASSERT: is flush
+    result = 1;
+  }
+  return result;
+
 }
 
 function sort_number(a, b){
