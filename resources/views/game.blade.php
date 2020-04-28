@@ -179,13 +179,13 @@ document.body.onkeyup = function(e){
 }
 
 function validate_single(cards_played){
-  console.log(cards_played[0]);
-  console.log(played[0]);
   return ((played.length == 0) || (cards_played[0] > played[0]));
 }
 
 function validate_pair(cards_played){
+  valid_pair = (get_card_number(cards_played[0]) == get_card_number(cards_played[1]));
 
+  return ((valid_pair) && ((played.length == 0) || (cards_played[1] > played[1])));
 }
 
 function validate_three(cards_played){
@@ -211,29 +211,42 @@ function get_card_number(card){
   return result;
 }
 
+function sort_number(a, b){
+  return a - b;
+}
+
 //PRE: cards_played is the array of ints representing the cards played
 //POST: returns true if cards_played can be played with the current cards in the center
 function validate_play(cards_played){
+  //convert values to int and sort
+  cards_played = cards_played.map(x=>+x);
+  cards_played = cards_played.sort(sort_number);
+
   is_valid = true;
 
-  if(cards_played.length == 1){
-    //ASSERT: single card played
-    is_valid = validate_single(cards_played);
-  }
-  else if(cards_played.length == 2){
-    //ASSERT: pair played
-    is_valid = validate_pair(cards_played);
-  }
-  else if(cards_played.length == 3){
-    //ASSERT: 3 of a kind played
-    is_valid = validate_three(cards_played);
-  }
-  else if(cards_played.length == 5){
-    //ASSERT: 5 card played
-    is_valid = validate_five(cards_played);
+  if((played.length == 0) || (cards_played.length == played.length)){
+    if(cards_played.length == 1){
+      //ASSERT: single card played
+      is_valid = validate_single(cards_played);
+    }
+    else if(cards_played.length == 2){
+      //ASSERT: pair played
+      is_valid = validate_pair(cards_played);
+    }
+    else if(cards_played.length == 3){
+      //ASSERT: 3 of a kind played
+      is_valid = validate_three(cards_played);
+    }
+    else if(cards_played.length == 5){
+      //ASSERT: 5 card played
+      is_valid = validate_five(cards_played);
+    }
+    else{
+      //ASSERT: invalid number of cards played
+      is_valid = false;
+    }
   }
   else{
-    //ASSERT: invalid number of cards played
     is_valid = false;
   }
 
