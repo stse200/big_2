@@ -163,6 +163,7 @@ $("img").on("click", function(){
 
 
 function set_played_cards(played_cards){
+  played = played_cards;
   $(".played_cards").empty();
   for (var i = 0; i < played_cards.length; i++){
     $(".played_cards").append("<img draggable=\"false\" class=\"played_card\" src=\"cards/" + played_cards[i].toString() + ".png\">");
@@ -178,7 +179,9 @@ document.body.onkeyup = function(e){
 }
 
 function validate_single(cards_played){
-
+  console.log(cards_played[0]);
+  console.log(played[0]);
+  return ((played.length == 0) || (cards_played[0] > played[0]));
 }
 
 function validate_pair(cards_played){
