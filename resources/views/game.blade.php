@@ -189,7 +189,10 @@ function validate_pair(cards_played){
 }
 
 function validate_three(cards_played){
+  valid_three = ((get_card_number(cards_played[0]) == get_card_number(cards_played[1])) &&
+                 (get_card_number(cards_played[0]) == get_card_number(cards_played[2])));
 
+  return ((valid_three) && ((played.length == 0) || (cards_played[2] > played[2])));
 }
 
 function validate_five(cards_played){
