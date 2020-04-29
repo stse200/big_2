@@ -254,9 +254,15 @@ function get_five_card_type(cards_played){
   var is_flush = suits.every( (val, i, arr) => val === arr[0] );
 
   //full house test
+  if(((numbers[0] == numbers[1]) && (numbers[0] == numbers[2]) && (numbers[3] == numbers[4])) || ((numbers[4] == numbers[3]) && (numbers[4] == numbers[2]) && (numbers[1] == numbers[0]))){
+    result = 2
+  }
 
 
-  //four of a kind
+  //four of a kind test
+  if(((numbers[0] == numbers[1]) && (numbers[0] == numbers[2]) && (numbers[0] == numbers[3])) || ((numbers[4] == numbers[3]) && (numbers[4] == numbers[2]) && (numbers[4] == numbers[1]))){
+    result = 3;
+  }
 
   if((is_straight) && (is_flush)){
     //ASSERT: is stright flush
