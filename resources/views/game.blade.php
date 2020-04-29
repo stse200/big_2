@@ -4,6 +4,8 @@
 <script src="{{asset('js/app.js')}}"></script>
 <script>
   Echo.channel('table').listen('DealCards', (e) => {
+    played = [];
+    passes = 0;
     $(".played_cards").empty();
     set_hand(e.deck);
     $(".num_cards").html(13);
@@ -139,6 +141,14 @@ function set_hand(deck){
     my_hand.push(deck[i]);
   }
 
+
+  //FOR TESTING
+  // my_hand = [5,9,13,17,21,52,6,10,14,18,22]; straight test
+  // my_hand = [6,7,8,18,19,52,14,15,16,25,26]; full house test
+  // my_hand = [5,6,7,8,38,52,17,18,19,20,49]; four of a kind test
+  // my_hand = [17,29,33,37,41,52,10,30,34,38,42]; flush check
+  // my_hand = [18,22,26,30,34,52,20,24,28,32,36];
+
   my_hand.sort(function(a, b){return a - b});
 
 
@@ -205,7 +215,56 @@ function validate_three(cards_played){
 //POST: returns true is cards_played is a valid five card that can be played, false otherwise
 function validate_five(cards_played){
   var type = get_five_card_type(cards_played);
-  console.log(type);
+  valid_five = true;
+  if(played.length > 0){
+    //ASSERT: not new round
+    played_type = get_five_card_type(played);
+    if(type < played_type){
+      //ASSERT: cards_played invalid. type less than center cards
+      valid_five = false;
+    }
+    else if(type == played_type){
+      //ASSERT: type of cards played is the same as center cards
+      if(type == 0){
+        //ASSERT: straight played
+        valid_five = (cards_played[4] > played[4]);
+      }
+      else if(type == 1){
+        //ASSERT: flush played
+        found = false;
+        curr_card = 4;
+        while((!found) && (curr_card> 0)){
+          if(get_card_number(cards_played[curr_card]) != get_card_number(played[curr_card])){
+            //ASSERT: found different number cards
+            found = true;
+            valid_five = (get_card_number(cards_played[curr_card]) > get_card_number(played[curr_card]));
+          }
+          else{
+            curr_card -= 1;
+          }
+        }
+        if(!found){
+          //ASSERT: played_cards and played contain the same cards numericaly
+          valid_five = (cards_played[4] > played[4]);
+        }
+
+      }
+      else if((type == 2) || (type == 3)){
+        //ASSERT: full house playted or 4 of a kind played
+        valid_five = (cards_played[2] > played[2]);
+      }
+      else if(type == 4){
+        //straight flush played
+        valid_five = (cards_played[4] > played[4]);
+      }
+    }
+  }
+  else{
+    //ASSERT: starting new round. Check that first play is a valid 5 card
+    valid_type = (type != -1)
+  }
+
+  return valid_five;
 
 }
 
