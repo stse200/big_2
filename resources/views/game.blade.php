@@ -49,6 +49,7 @@
 var curr_turn = -1
 var played = [];
 var passes = 0;
+var suit_sort = false;
 init();
 
 //PRE: just_passed is the player ID of the player who just passed
@@ -117,6 +118,9 @@ function init(){
 
 
 $("#deal").on("click", function(){
+  $(".played").removeClass("played");
+  curr_turn = -1;
+  $(".current_turn").removeClass("current_turn");
 
 
   $.ajaxSetup({
@@ -151,15 +155,62 @@ function set_hand(deck){
   // my_hand = [17,29,33,37,41,52,10,30,34,38,42]; flush check
   // my_hand = [18,22,26,30,34,52,20,24,28,32,36];
 
-  my_hand.sort(function(a, b){return a - b});
 
+  var slots = ["#slot1", "#slot2", "#slot3", "#slot4", "#slot5", "#slot6", "#slot7", "#slot8", "#slot9", "#slot10", "#slot11", "#slot12", "#slot13"];
 
-  for(var i = 1; i < 14; i++){
-    $("#slot" + i.toString()).attr("src", "cards/" + my_hand[i - 1].toString() + ".png");
-    $("#slot" + i.toString()).attr("card", my_hand[i - 1].toString());
-    $("#slot" + i.toString()).show();
-  }
+  display_cards(my_hand, slots);
+
+  // my_hand.sort(function(a, b){return a - b});
+  // my_hand.sort(function(a, b){return get_card_suit(a) - get_card_suit(b)});
+  //
+  //
+  // for(var i = 1; i < 14; i++){
+  //   $("#slot" + i.toString()).attr("src", "cards/" + my_hand[i - 1].toString() + ".png");
+  //   $("#slot" + i.toString()).attr("card", my_hand[i - 1].toString());
+  //   $("#slot" + i.toString()).show();
+  // }
 }
+
+//PRE: hand is an array of integer between 1 and 52 of length between 1 and 13
+//     slots is an array of strings representing the slots the cards should go in. Its length should match hand
+//POST: rets the values of hand to the hand of the player
+function display_cards(hand, slots){
+
+  hand.sort(function(a, b){return a - b});
+
+  if(suit_sort){
+    hand.sort(function(a, b){return get_card_suit(a) - get_card_suit(b)});
+  }
+
+  for(var i = 0; i < hand.length; i++){
+    $(slots[i]).attr("src", "cards/" + hand[i].toString() + ".png");
+    $(slots[i]).attr("card", hand[i].toString());
+    $(slots[i]).show();
+  }
+
+}
+
+$("#toggle_sort").on("click", function(){
+  suit_sort = !suit_sort;
+
+  $(".card_selected").addClass("card");
+  $(".card_selected").removeClass("card_selected");
+
+  var hand = [];
+  var slots = [];
+
+  $(".card").map(function() {
+    if(!$(this).hasClass("played")){
+      hand.push(parseInt($(this).attr("card")));
+      slots.push("#" + $(this).attr("id"));
+    }
+  });
+
+  display_cards(hand, slots);
+
+});
+
+
 
 
 $("img").on("click", function(){
@@ -401,6 +452,7 @@ function play_cards(){
       $(".card_selected").map(function() {
         $(this).hide();
         $(this).addClass("card");
+        $(this).addClass("played");
         $(this).removeClass("card_selected");
       });
       $.ajaxSetup({
@@ -632,6 +684,7 @@ button{
     <button id="deal">Deal</button>
     <button id="introduction">Introduce Everyone</button>
   @endif
+  <input type="checkbox" id="toggle_sort">Sort by suit
 
 
   <a id="exit" style="position: absolute;right: 5px;" href="{{action("GameController@home")}}">Exit</a>
