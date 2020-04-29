@@ -46,6 +46,7 @@
 
 
 <script>
+var curr_turn = -1
 var played = [];
 var passes = 0;
 init();
@@ -97,6 +98,7 @@ function set_turn_notifyer(just_played){
     //ASSERT: Not my turn. showing whose turn it is
     $("#p_name_" + (just_played + 1)).addClass("current_turn");
   }
+  curr_turn = (just_played + 1);
 }
 
 //PRE: none
@@ -383,7 +385,8 @@ function validate_play(cards_played){
 
 //plays selected cards
 function play_cards(){
-  if($(".card_selected").length > 0){
+  console.log(curr_turn);
+  if(((curr_turn == $("#player_number").html()) || (curr_turn == -1)) && ($(".card_selected").length > 0)){
   //get value of cards played and hide played cards
     var cards_played = [];
 
@@ -448,19 +451,21 @@ $("#introduction").on("click", function(){
 });
 
 $("#pass").on("click", function(){
+  if((curr_turn == $("#player_number").html()) && (played.length != 0)){
   $(".hand").css("background-color", "#a31414");
 
-  $.ajaxSetup({
-      headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-  });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     $.ajax({
       type:"POST",
       url:"/pass",
       data:{_token: '<?php echo csrf_token() ?>', player_number: $("#player_number").html()},
     });
+  }
 });
 
 
