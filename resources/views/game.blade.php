@@ -385,9 +385,11 @@ function validate_play(cards_played){
 
 //plays selected cards
 function play_cards(){
-  console.log(curr_turn);
+
   if(((curr_turn == $("#player_number").html()) || (curr_turn == -1)) && ($(".card_selected").length > 0)){
-  //get value of cards played and hide played cards
+    //ASSERT: can play cards
+
+    //get value of cards played and hide played cards
     var cards_played = [];
 
     //get all cards selected
@@ -452,7 +454,11 @@ $("#introduction").on("click", function(){
 
 $("#pass").on("click", function(){
   if((curr_turn == $("#player_number").html()) && (played.length != 0)){
-  $(".hand").css("background-color", "#a31414");
+    //ASSERT: can pass now
+
+    $(".card_selected").addClass("card");
+    $(".card_selected").removeClass("card_selected");
+    $(".hand").css("background-color", "#a31414");
 
     $.ajaxSetup({
         headers: {
