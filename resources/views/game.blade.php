@@ -4,8 +4,11 @@
 <script src="{{asset('js/app.js')}}"></script>
 <script>
   Echo.channel('table').listen('DealCards', (e) => {
+    $(".played").removeClass("played");
+    curr_turn = -1;
     played = [];
     passes = 0;
+    $(".played_notification").html("");
     $(".played_cards").empty();
     set_hand(e.deck);
     $(".num_cards").html(13);
@@ -118,7 +121,7 @@ function init(){
 
 
 $("#deal").on("click", function(){
-  $(".played").removeClass("played");
+
   curr_turn = -1;
   $(".current_turn").removeClass("current_turn");
 
@@ -209,9 +212,6 @@ $("#toggle_sort").on("click", function(){
   display_cards(hand, slots);
 
 });
-
-
-
 
 $("img").on("click", function(){
   if ($(this).hasClass("card")){
