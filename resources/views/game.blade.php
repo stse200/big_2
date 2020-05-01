@@ -687,7 +687,7 @@ button{
   <input type="checkbox" id="toggle_sort">Sort by suit
 
 
-  <a id="exit" style="position: absolute;right: 5px;" href="{{action("GameController@home")}}">Exit</a>
+  <a id="exit" style="position: absolute;right: 5px;" href="{{action("GameController@login")}}">Exit</a>
 
   <br><br>
   <div class="player_names">

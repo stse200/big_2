@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 class GameController extends Controller
 {
 
-  //Shows home screen
-  public function home(){
-
-    return view("home");
-  }
   //shows game view
   public function game(Request $request){
     //game keys and names

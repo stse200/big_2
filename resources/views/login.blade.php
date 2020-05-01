@@ -1,4 +1,4 @@
-@extends("layouts.template")
+@extends("layouts.login_register")
 
 
 @section("javascript")
@@ -81,7 +81,7 @@ $("#submit_form").on("click", function(){
   background-color: #8b33a3;
 }
 
-.game_key{
+.input_box{
   outline: none;
   font-size: 18pt;
 }
@@ -99,7 +99,8 @@ $("#submit_form").on("click", function(){
   @csrf
 
   <div class="container">
-    <span class="game_key">Enter Game Key: <input class="game_key" type="password" name="game_key" required></span>
+    <span class="input_box">Username: <input class="input_box" type="text" name="username" autocomplete="off" required></span>
+    <span class="input_box">Password: <input class="input_box" type="password" name="password" required></span>
     <input id="player_number" type="hidden" name="player_number">
     Select Player Number:
     <div class="player_number_select">
@@ -117,6 +118,7 @@ $("#submit_form").on("click", function(){
       </div>
     </div>
     <button type="button" id="submit_form">Enter Game</button>
+    <a href="{{action("UsersController@register")}}">Create Account</a>
   </div>
 </form>
 

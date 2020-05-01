@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get("/", "GameController@home");
+Route::get("/", "UsersController@login");
+Route::get("register", "UsersController@register");
+Route::post("process_register", "UsersController@process_register");
+Route::post("check_username", "UsersController@check_username");
+
+
 Route::post("game", "GameController@game");
 Route::post("deal", "GameController@deal");
 Route::post("play", "GameController@play");
