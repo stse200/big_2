@@ -64,4 +64,17 @@ class UsersController extends Controller
     return view("home");
   }
 
+  public function new_game(){
+    return view("new_game");
+  }
+
+  public function my_games(){
+    return view("my_games");
+  }
+
+  public function profile(){
+    return view("profile");
+}
+
+
 }

@@ -2,7 +2,7 @@
   <head>
     <script src="https://kit.fontawesome.com/f7d7392e66.js" crossorigin="anonymous"></script>
     <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
-      <title>@yield('title')</title>
+      <title>@yield('title') | Dai Di Online</title>
       @yield("head")
   </head>
   <body>
@@ -43,8 +43,8 @@
 
         font-size: 14pt;
         color: rgb(255,255,255);
-        border-bottom: 1px solid rgb(161,173,255);
-        border-top: 1px solid rgb(161,173,255);
+        border-bottom: 1px solid rgb(0, 17, 130);
+        border-top: 1px solid rgb(0, 22, 166);
         padding-left: 20px;
         vertical-align: middle;
         line-height: 50px;
@@ -67,6 +67,8 @@
     </div>
     <div class="main_section">
       <div class="sidebar">
+        <a href="{{action("UsersController@home")}}"><i class="fas fa-home"></i> Home</a>
+        @yield("sidebar")
         <a href="{{action("UsersController@logout")}}"><i class="fas fa-door-open"></i> Logout</a>
       </div>
       <div class="content">
