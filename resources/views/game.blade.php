@@ -541,6 +541,7 @@ $("#pass").on("click", function(){
   padding-top: 10px;
   padding-bottom: 10px;
   left: 0px;
+  width: 100%;
 }
 
 #play{
