@@ -24,27 +24,38 @@
         font-family: "Arial Black";
       }
 
-      .content{
-        background-color: rgb(245,248,251);
-        width: 25%;
-        margin: 0 auto;
-        border-radius: 20px;
-        margin-top: 15px;
-        padding: 10px;
-        border: 2px solid #000000;
+      .main_section{
+
+
       }
 
-      #logout{
+      .sidebar{
+        display: grid;
+        background-color: rgb(0,13,102);
         position: absolute;
-        top: 13px;
-        right: 10px;
-        text-decoration: none;
-        color: rgb(255,255,255);
-        background-color: rgb(218,56,73);
-        padding: 8px;
-        font-size: 14pt;
-        border-radius: 5px;
+        top: 85px;
+        left: 20px;
+        width: 230;
       }
+
+      .sidebar a{
+        font-family: "Arial";
+
+        font-size: 14pt;
+        color: rgb(255,255,255);
+        border-bottom: 1px solid rgb(161,173,255);
+        border-top: 1px solid rgb(161,173,255);
+        padding-left: 20px;
+        vertical-align: middle;
+        line-height: 50px;
+        text-decoration: none;
+      }
+
+      .content{
+        background-color: rgb(245,248,251);
+        margin: 20px 20px 20px 270px;
+      }
+
 
     </style>
 
@@ -54,9 +65,14 @@
     <div class="heading">
       Welcome to Dai Di!
     </div>
-    <a id="logout" href="{{action("UsersController@logout")}}"><i class="fas fa-door-open"></i> Logout</a>
-    <div class="content">
-      @yield('content')
+    <div class="main_section">
+      <div class="sidebar">
+        <a href="{{action("UsersController@logout")}}"><i class="fas fa-door-open"></i> Logout</a>
+      </div>
+      <div class="content">
+        @yield('content')
+
+      </div>
     </div>
 
   </body>
