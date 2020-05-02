@@ -20,6 +20,8 @@ Route::get("register", "UsersController@register");
 Route::post("process_register", "UsersController@process_register");
 Route::post("check_username", "UsersController@check_username");
 Route::post("process_login", "UsersController@process_login");
+Route::get("home", "UsersController@home");
+Route::get("logout", "UsersController@logout");
 
 
 Route::post("game", "GameController@game");

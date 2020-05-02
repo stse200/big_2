@@ -153,8 +153,8 @@ $("#p2").keydown(function(){
     <input id="p2" type="password" name="confirm_password" maxlength="20" required>
     <span style="display: none" id="password_error">Passwords do not match</span>
 
-    <a id="submit_form">Create Account</a>
-    <a id="back_to_login" href="{{action("UsersController@login")}}">Back to Login</a>
+    <a id="submit_form"><i class="fas fa-user-circle"></i> Create Account</a>
+    <a id="back_to_login" href="{{action("UsersController@login")}}"><i class="fas fa-undo-alt"></i> Back to Login</a>
   </div>
 </form>
 @endsection

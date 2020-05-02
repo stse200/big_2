@@ -9,25 +9,26 @@
 
 <script>
 
+function check_form(){
+  if(($("#username").val() != "") && ($("#password").val() != "")){
+    //ASSERT: A username and password have been entered
+    $("#login_form").submit();
+  }
+}
+
 //prevent enter from submitting form
 $(document).ready(function() {
   $(window).keydown(function(event){
     if(event.keyCode == 13) {
       event.preventDefault();
-      return false;
+      check_form();
+
     }
   });
 });
 
-$(".player_number_option").on("click", function(){
-  $(".player_number_option").removeClass("selected");
-  $(this).addClass("selected");
-
-  $("#player_number").val($(this).html());
-});
-
 $("#submit_form").on("click", function(){
-  $("#login_form").submit();
+  check_form();
 });
 
 </script>
@@ -81,11 +82,11 @@ $("#submit_form").on("click", function(){
 
   <div class="container">
     <span>Username:</span>
-    <input class="input_box" type="text" name="username" autocomplete="off" required>
+    <input id="username" class="input_box" type="text" name="username" autocomplete="off" autofocus="autofocus" onfocus="this.select()" required>
     <span>Password:</span>
-    <input class="input_box" type="password" name="password" required>
+    <input id="password" class="input_box" type="password" name="password" required>
 
-    <a id="submit_form">Login</a>
+    <a id="submit_form"><i class="fas fa-sign-in-alt"></i> Login</a>
     <a id="create_account" href="{{action("UsersController@register")}}">Create Account</a>
   </div>
 </form>

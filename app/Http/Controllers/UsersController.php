@@ -21,11 +21,15 @@ class UsersController extends Controller
     $user = Users::where("username", $request->username)->first();
     if(($user != null) && (Hash::check($request->password, $user->password))){
       //ASSERRT:Correct username and password
-      return view("home");
+      return redirect("home");
     }
     else{
       return redirect("/");
     }
+  }
+
+  public function logout(){
+    return redirect("/");
   }
 
   public function register(){
@@ -54,6 +58,10 @@ class UsersController extends Controller
     $new_user->save();
 
     return redirect("/");
+  }
+
+  public function home(){
+    return view("home");
   }
 
 }

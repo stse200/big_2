@@ -1,5 +1,6 @@
 <html>
   <head>
+    <script src="https://kit.fontawesome.com/f7d7392e66.js" crossorigin="anonymous"></script>
     <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
       <title>@yield('title')</title>
       @yield("head")
@@ -20,12 +21,13 @@
       }
 
       body {
-      background-color: rgb(109,117,125);
+      background-color: rgb(64,64,64);
       margin: 0px;
       }
 
       .heading{
-        background-color: #0f2ca3;
+        background-color: rgb(38,38,38);
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.7);
         color: #b89a2e;
         font-size: 24pt;
         text-align: center;
@@ -36,11 +38,11 @@
       }
 
       .content{
-        background-color: #ffffff;
+        background-color: rgb(245,248,251);
         width: 25%;
         margin: 0 auto;
         border-radius: 20px;
-        margin-top: 5px;
+        margin-top: 15px;
         padding: 10px;
         border: 2px solid #000000;
       }
