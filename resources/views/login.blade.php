@@ -38,52 +38,31 @@ $("#submit_form").on("click", function(){
 .title{
   font-size: 25pt;
   text-align: center;
-  width: 98%;
-  margin-top: 15%;
+  width: 100%
 }
 
 .container{
   display: grid;
   grid-gap: 10px;
-  width: 98%;
-  text-align: center;
+  width: 100%;
   margin-top: 10px;
-  justify-items: center;
-}
-
-#submit_form{
-  margin-top: 25px;
-  width: 15%;
-  background-color: #22ab24;
-  font-size: 14pt;
-  cursor: pointer;
-}
-
-.player_number_select{
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-    grid-gap: 5px;
-}
-
-.player_number_option{
-  background-color: #235191;
-  padding: 10px;
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 20pt;
-}
-
-.player_number_option:hover{
-  background-color: #8b33a3;
-}
-
-.selected{
-  background-color: #8b33a3;
+  font-family: verdana;
 }
 
 .input_box{
   outline: none;
   font-size: 18pt;
+  width: 100%;
+}
+
+#create_account{
+  text-decoration: none;
+  color: rgb(20,119,235);
+  text-align: center;
+}
+
+#create_account:hover{
+  text-decoration: underline;
 }
 
 </style>
@@ -92,33 +71,20 @@ $("#submit_form").on("click", function(){
 @section("content")
 
 <div class="title">
-  Welcome to Dai Di!
+  Login
 </div>
 
 <form id="login_form" method="POST" action={{action("GameController@game")}}>
   @csrf
 
   <div class="container">
-    <span class="input_box">Username: <input class="input_box" type="text" name="username" autocomplete="off" required></span>
-    <span class="input_box">Password: <input class="input_box" type="password" name="password" required></span>
-    <input id="player_number" type="hidden" name="player_number">
-    Select Player Number:
-    <div class="player_number_select">
-      <div class="player_number_option">
-        1
-      </div>
-      <div class="player_number_option">
-        2
-      </div>
-      <div class="player_number_option">
-        3
-      </div>
-      <div class="player_number_option">
-        4
-      </div>
-    </div>
-    <button type="button" id="submit_form">Enter Game</button>
-    <a href="{{action("UsersController@register")}}">Create Account</a>
+    <span>Username:</span>
+    <input class="input_box" type="text" name="username" autocomplete="off" required>
+    <span>Password:</span>
+    <input class="input_box" type="password" name="password" required>
+
+    <a id="submit_form">Login</a>
+    <a id="create_account" href="{{action("UsersController@register")}}">Create Account</a>
   </div>
 </form>
 

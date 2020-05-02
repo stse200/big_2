@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateScoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,13 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('scores', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('password');
+            $table->integer("fkey_game_id");
+            $table->integer("p1_score");
+            $table->integer("p2_score");
+            $table->integer("p3_score");
+            $table->integer("p4_score");
             $table->timestamps();
             $table->softDeletes("deleted_at", 0);
         });
@@ -29,6 +32,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('scores');
     }
 }

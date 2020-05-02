@@ -82,21 +82,17 @@ $("#p2").keydown(function(){
   outline: none;
 }
 
-#submit_form{
-  margin-top: 10px;
-  background-color: #1d9e16;
-  cursor: pointer;
-  font-size: 18pt;
-}
-
 #back_to_login{
   margin-top: 20px;
-  background-color: #999999;
+  background-color: rgb(51,57,63);
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
   text-align: center;
   font-size: 18pt;
-  color: #000000;
+  color: rgb(255,255,255);
+  padding: 3px;
 }
 
 #username_available{
@@ -111,11 +107,21 @@ $("#p2").keydown(function(){
   color: #b80920;
 }
 
+.title{
+  font-size: 25pt;
+  text-align: center;
+  width: 100%
+}
+
 
 </style>
 @endsection
 
 @section("content")
+  <div class="title">
+    Register
+  </div>
+
 <form id="login_form" method="POST" action="{{action("UsersController@process_register")}}">
     @csrf
   <div class="container">
@@ -124,7 +130,7 @@ $("#p2").keydown(function(){
     <span style="display: none" id="username_available">Username Available</span>
     <span style="display: none" id="username_taken" >Username Taken</span>
 
-    <span>Name</span>
+    <span>Name:</span>
     <input type="text" name="new_name" autocomplete="off" required>
     <span>Password:</span>
     <input id="p1" type="password" name="new_password" required>
@@ -133,7 +139,7 @@ $("#p2").keydown(function(){
     <input id="p2" type="password" name="confirm_password" required>
     <span style="display: none" id="password_error">Passwords do not match</span>
 
-    <button type="button" id="submit_form">Create Account</button>
+    <a id="submit_form">Create Account</a>
     <a id="back_to_login" href="{{action("UsersController@login")}}">Back to Login</a>
   </div>
 </form>
