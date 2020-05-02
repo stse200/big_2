@@ -46,14 +46,13 @@
       }
     </style>
 
-      @yield("css")
-      <div class="heading">
-        Welcome to Dai Di!
-      </div>
-      <div class="content">
-        @yield('content')
-      </div>
-  </div>
+    @yield("css")
+    <div class="heading">
+      Welcome to Dai Di!
+    </div>
+    <div class="content">
+      @yield('content')
+    </div>
   </body>
 </html>
 

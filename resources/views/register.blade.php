@@ -1,5 +1,9 @@
 @extends("layouts.login_register")
 
+@section('title')
+  Register | Dai Di Online
+@endsection
+
 @section("javascript")
 
   @section("javascript")
@@ -17,8 +21,18 @@ $(document).ready(function() {
 });
 
 $("#submit_form").on("click", function(){
+  var letters = /^[0-9a-zA-Z]+$/;
+
   if($("#p1").val() == $("#p2").val()){
-    $("#login_form").submit();
+    if(($("#username").val().match(letters)) && ($("#p1").val().match(letters)) && ($("#name").val().match(letters))){
+      if($("#username_available").css("display") == "grid") {
+        $("#login_form").submit();
+      }
+    }
+    else{
+      alert("Letters and Numbers Only");
+    }
+
   }
   else{
     $("#password_error").css("display", "grid");
@@ -126,17 +140,17 @@ $("#p2").keydown(function(){
     @csrf
   <div class="container">
     <span>Username:</span>
-    <input id="username" type="text" name="new_username" autocomplete="off" required>
+    <input id="username" type="text" name="new_username" autocomplete="off" maxlength="10" required>
     <span style="display: none" id="username_available">Username Available</span>
     <span style="display: none" id="username_taken" >Username Taken</span>
 
     <span>Name:</span>
-    <input type="text" name="new_name" autocomplete="off" required>
+    <input id="name" type="text" name="new_name" autocomplete="off" maxlength="20" required>
     <span>Password:</span>
-    <input id="p1" type="password" name="new_password" required>
+    <input id="p1" type="password" name="new_password" maxlength="20" required>
 
     <span>Confirm Password:</span>
-    <input id="p2" type="password" name="confirm_password" required>
+    <input id="p2" type="password" name="confirm_password" maxlength="20" required>
     <span style="display: none" id="password_error">Passwords do not match</span>
 
     <a id="submit_form">Create Account</a>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Users;
 
 
 class UsersController extends Controller
@@ -15,23 +17,43 @@ class UsersController extends Controller
     return view("login");
   }
 
+  public function process_login(Request $request){
+    $user = Users::where("username", $request->username)->first();
+    if(($user != null) && (Hash::check($request->password, $user->password))){
+      //ASSERRT:Correct username and password
+      return view("home");
+    }
+    else{
+      return redirect("/");
+    }
+  }
+
   public function register(){
     return view("register");
 
   }
 
   public function check_username(Request $request){
+    $username_check = Users::where("username", $request->username)->first();
+
     $result = true;
-    if($request->input("username") == "stse200"){
+    if($username_check != null){
+      //ASSERT: username is taken
       $result = false;
     }
     return response()->json(array("is_valid" => $result));
   }
 
   public function process_register(Request $request){
-    echo $request->input("new_username");
-    echo $request->input("new_name");
-    echo $request->input("new_password");
+
+    $new_user = new Users;
+    $new_user->username = $request->input("new_username");
+    $new_user->name = $request->input("new_name");
+    $new_user->password = Hash::make($request->input("new_password"));
+
+    $new_user->save();
+
+    return redirect("/");
   }
 
 }

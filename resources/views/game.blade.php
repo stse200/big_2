@@ -1,4 +1,4 @@
-@extends("layouts.template")
+@extends("game_template.template")
 
 @section("javascript")
 <script src="{{asset('js/app.js')}}"></script>

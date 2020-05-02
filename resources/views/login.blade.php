@@ -1,6 +1,10 @@
 @extends("layouts.login_register")
 
 
+@section('title')
+  Login | Dai Di Online
+@endsection
+
 @section("javascript")
 
 <script>
@@ -23,9 +27,7 @@ $(".player_number_option").on("click", function(){
 });
 
 $("#submit_form").on("click", function(){
-  if($.trim($("#player_number").val()) != ""){
-    $("#login_form").submit();
-  }
+  $("#login_form").submit();
 });
 
 </script>
@@ -74,7 +76,7 @@ $("#submit_form").on("click", function(){
   Login
 </div>
 
-<form id="login_form" method="POST" action={{action("GameController@game")}}>
+<form id="login_form" method="POST" action={{action("UsersController@process_login")}}>
   @csrf
 
   <div class="container">
