@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use App\Users;
 
 
@@ -18,9 +19,9 @@ class UsersController extends Controller
   }
 
   public function process_login(Request $request){
-    $user = Users::where("username", $request->username)->first();
-    if(($user != null) && (Hash::check($request->password, $user->password))){
-      //ASSERRT:Correct username and password
+    $credentials = $request->only("username", "password");
+    if(Auth::attempt($credentials)){
+      //ASSERT: Valid login
       return redirect("home");
     }
     else{
@@ -29,6 +30,7 @@ class UsersController extends Controller
   }
 
   public function logout(){
+    Auth::logout();
     return redirect("/");
   }
 

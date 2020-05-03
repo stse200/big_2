@@ -13,18 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware("auth")->group(function(){
+  Route::get("home", "UsersController@home");
+  Route::get("my_games", "UsersController@my_games");
+  Route::get("new_game", "UsersController@new_game");
+  route::get("profile", "UsersController@profile");
+});
 
-
-Route::get("/", "UsersController@login");
+Route::get("/", "UsersController@login")->name("login");
 Route::get("register", "UsersController@register");
 Route::post("process_register", "UsersController@process_register");
 Route::post("check_username", "UsersController@check_username");
 Route::post("process_login", "UsersController@process_login");
-Route::get("home", "UsersController@home");
+
 Route::get("logout", "UsersController@logout");
-Route::get("my_games", "UsersController@my_games");
-Route::get("new_game", "UsersController@new_game");
-route::get("profile", "UsersController@profile");
+
 
 Route::prefix("big_2")->group(function(){
   Route::post("game", "Big2Controller@game");
