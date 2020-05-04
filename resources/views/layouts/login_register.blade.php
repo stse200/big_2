@@ -50,7 +50,7 @@
 
     @yield("css")
     <div class="heading">
-      Welcome to Dai Di!
+      Welcome to the Goo Network!
     </div>
     <div class="content">
       @yield('content')

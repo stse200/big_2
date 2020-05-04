@@ -56,6 +56,20 @@
         margin: 20px 20px 20px 270px;
       }
 
+      #submit_form{
+        margin-top: 20px;
+        background-color: rgb(48,166,74);
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        font-size: 18pt;
+        color: rgb(255,255,255);
+        padding: 3px;
+        font-family: "Arial";
+      }
+
 
     </style>
 
@@ -63,7 +77,7 @@
     @yield("css")
 
     <div class="heading">
-      Welcome to Dai Di!
+      Welcome to the Goo Network!
     </div>
     <div class="main_section">
       <div class="sidebar">

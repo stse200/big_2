@@ -50,6 +50,16 @@ class UsersController extends Controller
     return response()->json(array("is_valid" => $result));
   }
 
+  public function find_username(Request $request){
+    $username_check = Users::where("username", $request->username)->first();
+
+    if($username_check == null){
+      //ASSERT: username does not exist
+      return response()->json(array("is_valid" => false));
+    }
+    return response()->json(array("is_valid" => true, "id" => $username_check->id));
+  }
+
   public function process_register(Request $request){
 
     $new_user = new Users;

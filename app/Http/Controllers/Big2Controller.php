@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Games;
 
 
 class Big2Controller extends Controller
@@ -75,6 +78,27 @@ class Big2Controller extends Controller
 
   public function pass(Request $request){
     event(new \App\Events\Pass($request->input("player_number")));
+  }
+
+  public function create_new_game(Request $request){
+    $new_game = new Games;
+
+    $new_game->name = $request->game_name;
+    $new_game->fkey_user_id = Auth::user()->id;
+
+    $new_game->fkey_p1_id = $request->p1;
+    $new_game->fkey_p2_id = $request->p2;
+    $new_game->fkey_p3_id = $request->p3;
+    $new_game->fkey_p4_id = $request->p4;
+
+    $new_game->p1_online = false;
+    $new_game->p2_online = false;
+    $new_game->p3_online = false;
+    $new_game->p4_online = false;
+
+    $new_game->save();
+
+    return redirect("home");
   }
 
 }

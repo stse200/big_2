@@ -18,6 +18,9 @@ Route::middleware("auth")->group(function(){
   Route::get("my_games", "UsersController@my_games");
   Route::get("new_game", "UsersController@new_game");
   route::get("profile", "UsersController@profile");
+
+  Route::post("create_new_game", "Big2Controller@create_new_game");
+  route::post("find_username", "UsersController@find_username");
 });
 
 Route::get("/", "UsersController@login")->name("login");
