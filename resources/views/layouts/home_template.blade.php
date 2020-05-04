@@ -74,6 +74,13 @@
         font-family: "Arial";
       }
 
+      .footer{
+        text-align: center;
+        margin-left: 270px;
+        margin-top: 50px;
+        color: rgb(116,135,166);
+      }
+
 
     </style>
 
@@ -81,7 +88,7 @@
     @yield("css")
 
     <div class="heading">
-      Welcome to the Goo Network!
+      Welcome to the Tse Casino
     </div>
     <div class="main_section">
       <div class="sidebar">
@@ -93,6 +100,9 @@
         @yield('content')
 
       </div>
+    </div>
+    <div class="footer">
+      Made By Stephen Tse in <i class="fab fa-laravel"></i>Laravel
     </div>
 
   </body>

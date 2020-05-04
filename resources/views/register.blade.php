@@ -21,7 +21,7 @@ $(document).ready(function() {
 });
 
 $("#submit_form").on("click", function(){
-  var letters = /^[0-9a-zA-Z]+$/;
+  var letters = /^[0-9a-zA-Z ]+$/;
 
   if($("#p1").val() == $("#p2").val()){
     if(($("#username").val().match(letters)) && ($("#p1").val().match(letters)) && ($("#name").val().match(letters))){

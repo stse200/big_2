@@ -91,8 +91,25 @@ class UsersController extends Controller
   }
 
   public function profile(){
-    return view("profile");
-}
+    $data = Users::where("id", Auth::user()->id)->first();
+    return view("profile", compact("data"));
+  }
+
+  public function change_password(Request $request){
+    $user = Users::where("id", Auth::user()->id)->first();
+    $user->password = Hash::make($request->input("new_password"));
+    $user->save();
+
+    return redirect("profile");
+  }
+
+  public function change_name(Request $request){
+    $user = Users::where("id", Auth::user()->id)->first();
+    $user->name = $request->input("new_name");
+    $user->save();
+
+    return redirect("profile");
+  }
 
 
 }
