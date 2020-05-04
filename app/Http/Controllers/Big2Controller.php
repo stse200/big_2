@@ -91,10 +91,6 @@ class Big2Controller extends Controller
     $new_game->fkey_p3_id = $request->p3;
     $new_game->fkey_p4_id = $request->p4;
 
-    $new_game->p1_online = false;
-    $new_game->p2_online = false;
-    $new_game->p3_online = false;
-    $new_game->p4_online = false;
 
     $new_game->save();
 

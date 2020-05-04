@@ -21,10 +21,6 @@ class CreateGamesTable extends Migration
             $table->integer("fkey_p2_id");
             $table->integer("fkey_p3_id");
             $table->integer("fkey_p4_id");
-            $table->boolean("p1_online");
-            $table->boolean("p2_online");
-            $table->boolean("p3_online");
-            $table->boolean("p4_online");
             $table->timestamps();
             $table->softDeletes("deleted_at", 0);
         });
