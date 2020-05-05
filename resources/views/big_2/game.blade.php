@@ -15,6 +15,7 @@ var curr_turn = -1;
 var played = [];
 var passes = 0;
 var suit_sort = false;
+var my_card_count = 0;
 init();
 
 $("img").on("click", function(){
@@ -185,6 +186,7 @@ button{
   @if($owner)
     <button id="deal">Deal</button>
     <button id="introduction">Introduce Everyone</button>
+    <button id="test">Count cards</button>
   @endif
   <input type="checkbox" id="toggle_sort">Sort by suit
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Scores;
 use App\Games;
 
 
@@ -98,6 +98,20 @@ class Big2Controller extends Controller
     $new_game->save();
 
     return redirect("home");
+  }
+
+  //PRE: scores and game id have been passed
+  //POST: writes the scores to the
+  public function record_score($request){
+    $new_scores = new Scores;
+
+    $new_scores->fkey_game_id = $request->game_id;
+    $new_scores->p1_score = $request->p1_score;
+    $new_scores->p2_score = $request->p2_score;
+    $new_scores->p3_score = $request->p3_score;
+    $new_scores->p4_score = $request->p4_score;
+
+    $new_scores->save();
   }
 
 }

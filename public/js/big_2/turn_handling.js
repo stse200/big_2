@@ -14,12 +14,13 @@ function reset_round(){
   $(".played_cards").css("opacity", "1");
   $(".played_cards").empty();
   played = [];
+  my_card_count = 0;
 
   //reset player notification
   passes = 0;
   $(".played").removeClass("played");
   $(".played_notification").html("");
-  $(".num_cards").html(13);
+  $(".num_cards").html(1);
   curr_turn = -1;
 
   reset_turn_notifyer();
@@ -123,3 +124,42 @@ $("#pass").on("click", function(){
     });
   }
 });
+
+$("#test").on("click", function(){
+  check_out();
+});
+
+//PRE: none
+//POST: if a player is out, shows notification on who is out. Writes scores to
+//      DB if player is game owner
+function check_out(){
+  var end_round = false;
+
+  var out_player = -1;
+
+  var someone_out = false;
+  $(".num_cards").each(function(){
+    console.log(parseInt($(this).html()));
+    if(parseInt($(this).html()) == 0){
+      out_player = $(this).attr("id").substring(8, $(this).attr("id").length);
+      someone_out = true;
+    }
+  });
+  console.log(out_player);
+  //check if I am out
+  if(my_card_count == 0){
+    //ASSERT: I am out
+    end_round = true;
+    $(".played_notification").html("You went out!");
+  }
+  else if(someone_out){
+    //ASSERT: somone who is not me is out
+    end_round = true;
+    $(".played_notification").html($("#p_name_" + out_player).html() + " went out!");
+    curr_turn = -2;
+  }
+
+  return end_round;
+
+
+}
