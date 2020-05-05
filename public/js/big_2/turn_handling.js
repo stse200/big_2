@@ -20,7 +20,7 @@ function reset_round(){
   passes = 0;
   $(".played").removeClass("played");
   $(".played_notification").html("");
-  $(".num_cards").html(13);
+  $(".num_cards").html(1);
   curr_turn = -1;
 
   reset_turn_notifyer();
@@ -139,13 +139,11 @@ function check_out(){
 
   var someone_out = false;
   $(".num_cards").each(function(){
-    console.log(parseInt($(this).html()));
     if(parseInt($(this).html()) == 0){
       out_player = $(this).attr("id").substring(8, $(this).attr("id").length);
       someone_out = true;
     }
   });
-  console.log(out_player);
   //check if I am out
   if(my_card_count == 0){
     //ASSERT: I am out
@@ -157,6 +155,16 @@ function check_out(){
     end_round = true;
     $(".played_notification").html($("#p_name_" + out_player).html() + " went out!");
     curr_turn = -2;
+  }
+
+  if(end_round && owner){
+    //ASSERT: Someone is out. Recording scores
+
+    $.ajax({
+      type:"POST",
+      url:"/big_2/record_score",
+      data:{_token: $("#csrf").html(), game_id: game_id, scores: get_scores()},
+    });
   }
 
   return end_round;

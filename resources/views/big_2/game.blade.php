@@ -16,6 +16,7 @@ var played = [];
 var passes = 0;
 var suit_sort = false;
 var my_card_count = 0;
+var owner = {{$owner}}
 init();
 
 $("img").on("click", function(){
@@ -28,6 +29,24 @@ $("img").on("click", function(){
     $(this).removeClass("card_selected");
   }
 });
+
+//PRE: none
+//POST: returns an array of the current card cound of each player
+function get_scores(){
+  var scores = [];
+
+  scores.push($("#p_cards_" + {{$players[0]["id"]}}).html());
+  scores.push($("#p_cards_" + {{$players[1]["id"]}}).html());
+  scores.push($("#p_cards_" + {{$players[2]["id"]}}).html());
+  scores.push($("#p_cards_" + {{$players[3]["id"]}}).html());
+
+  for(var i = 0; i < 4; i++){
+    if(scores[i] == null){
+      scores[i]= my_card_count;
+    }
+  }
+  return scores;
+}
 
 </script>
 

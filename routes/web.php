@@ -32,6 +32,7 @@ Route::middleware("auth")->group(function(){
     Route::post("introduce_myself", "Big2Controller@introduce_myself");
     Route::post("command_introduction", "Big2Controller@command_introduction");
     Route::post("pass", "Big2Controller@pass");
+    Route::post("record_score", "Big2Controller@record_score");
 
   });
 });

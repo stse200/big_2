@@ -102,14 +102,15 @@ class Big2Controller extends Controller
 
   //PRE: scores and game id have been passed
   //POST: writes the scores to the
-  public function record_score($request){
+  public function record_score(Request $request){
+
     $new_scores = new Scores;
 
     $new_scores->fkey_game_id = $request->game_id;
-    $new_scores->p1_score = $request->p1_score;
-    $new_scores->p2_score = $request->p2_score;
-    $new_scores->p3_score = $request->p3_score;
-    $new_scores->p4_score = $request->p4_score;
+
+    for($i = 1; $i < 5; $i++){
+      $new_scores["p" . strval($i) . "_score"] = $request->input("scores")[$i - 1];
+    }
 
     $new_scores->save();
   }
