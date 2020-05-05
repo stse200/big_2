@@ -20,7 +20,7 @@ function reset_round(){
   passes = 0;
   $(".played").removeClass("played");
   $(".played_notification").html("");
-  $(".num_cards").html(1);
+  $(".num_cards").html(13);
   curr_turn = -1;
 
   reset_turn_notifyer();

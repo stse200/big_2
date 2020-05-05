@@ -30,12 +30,6 @@ function set_hand(deck){
   // my_hand = [17,29,33,37,41,52,10,30,34,38,42]; flush check
   // my_hand = [18,22,26,30,34,52,20,24,28,32,36];
 
-  if(my_id == 2){
-    my_hand = [1];
-    my_card_count = 1;
-  }
-
-
   var slots = ["#slot1", "#slot2", "#slot3", "#slot4", "#slot5", "#slot6", "#slot7", "#slot8", "#slot9", "#slot10", "#slot11", "#slot12", "#slot13"];
 
   display_cards(my_hand, slots);
