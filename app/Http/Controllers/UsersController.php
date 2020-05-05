@@ -87,6 +87,8 @@ class UsersController extends Controller
 
     $games_in = Games::where("fkey_p1_id", Auth::user()->id)->orWhere("fkey_p2_id", Auth::user()->id)->orWhere("fkey_p3_id", Auth::user()->id)->orWhere("fkey_p4_id", Auth::user()->id)->get();
 
+    $games_in = $games_in->where("fkey_user_id", "<>", Auth::user()->id);
+
     return view("my_games", compact("games_owned", "games_in"));
   }
 

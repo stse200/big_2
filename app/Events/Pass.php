@@ -14,16 +14,18 @@ class Pass implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $player_number;
+    public $current_player;
+    public $next_player;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($player_number)
+    public function __construct($player_number, $next_player)
     {
-      $this->player_number = $player_number;
+      $this->current_player = $player_number;
+      $this->next_player = $next_player;
     }
 
     /**

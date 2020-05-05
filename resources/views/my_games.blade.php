@@ -27,6 +27,7 @@
   text-align: right;
 }
 
+
 </style>
 
 @endsection
@@ -49,11 +50,11 @@ $(".play").on("click", function(){
   <div class="game_heading">Games I Own</div>
 
   <ul class="list-group">
-    @foreach ($games_owned as $game_owned)
+    @foreach ($games_owned as $games_owned)
       <li class="list-group-item game">
-        {{$game_owned->name}}
-        <div class="buttons" game="{{$game_owned->id}}">
-          <button class="btn btn-success play"><i class="fas fa-play"></i> Play</button>
+        {{$games_owned->name}}
+        <div class="buttons">
+          <a href="{{action("Big2Controller@game", ["id" => $games_owned->id])}}" class="btn btn-success play"><i class="fas fa-play"></i> Play</a>
           <button class="btn btn-dark view"><i class="fas fa-eye"></i> View</button>
           <button class="btn btn-primary edit"><i class="fas fa-pencil-alt"></i> Edit</button>
           <button class="btn btn-danger delete"><i class="fas fa-trash-alt"></i> Delete</button>
@@ -68,8 +69,8 @@ $(".play").on("click", function(){
     @foreach ($games_in as $game_in)
       <li class="list-group-item game">
         {{$game_in->name}}
-        <div class="buttons" game="{{$game_in->id}}">
-          <button class="btn btn-success play"><i class="fas fa-play"></i> Play</button>
+        <div class="buttons">
+          <a href="{{action("Big2Controller@game", ["id" => $game_in->id])}}" class="btn btn-success play"><i class="fas fa-play"></i> Play</a>
         </div>
       </li>
     @endforeach

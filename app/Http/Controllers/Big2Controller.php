@@ -13,43 +13,25 @@ class Big2Controller extends Controller
 {
 
   //shows game view
-  public function game(Request $request){
-    //game keys and names
-    $keys = ["Stephen" => "botw link", "Chiming" => "chairman", "Brandon" => "front row", "Chiyung" => "papa soy", "Link" => "hero of hyrule", "Ethan" => "grab fest"];
+  public function game($id){
 
-    //check for valid game key
-    if(in_array($request->input("game_key"), $keys)){
-      //ASSERT: valid key
-      $player_name = array_keys($keys, $request->input("game_key"))[0];
-      $player_number = $request->input("player_number");
-      $is_admin = ($player_number == 1);
+    $game = Games::where("id", $id)->with("p1_name")->with("p2_name")->with("p3_name")->with("p4_name")->first();
+    $my_id = Auth::user()->id;
+    $game_id = $game->id;
+    $owner = $my_id == $game->fkey_user_id;
 
-      //set other player positions
-      if($player_number == 1){
-        $right_player = 2;
-        $top_player = 3;
-        $left_player = 4;
+    $players = [];
+
+    $curr_id = $my_id;
+    for($i = 0; $i < 4; $i++){
+      array_push($players, ["id" => $game["fkey_p" . strval($curr_id) . "_id"], "name" => $game["p" . strval($curr_id) . "_name"]["name"]]);
+      $curr_id += 1;
+      if($curr_id > 4){
+        $curr_id = 1;
       }
-      elseif($player_number == 2) {
-        $right_player = 3;
-        $top_player = 4;
-        $left_player = 1;
-      }
-      elseif($player_number == 3) {
-        $right_player = 4;
-        $top_player = 1;
-        $left_player = 2;
-      }
-      else{
-        $right_player = 1;
-        $top_player = 2;
-        $left_player = 3;
-      }
-      return view("game", compact("player_name", "player_number", "is_admin", "right_player", "top_player", "left_player"));
     }
-    else{
-      return redirect("/");
-    }
+
+    return view("big_2/game", compact("my_id", "game_id", "players", "owner"));
   }
 
   //shuffles deck of cards
@@ -63,13 +45,34 @@ class Big2Controller extends Controller
     return response()->json(array("deck" => $deck));
   }
 
-  //aJax call to handle playing cards. Will proadcast cards played to other players
-  public function play(Request $request){
-    event(new \App\Events\PlayCards($request->input("played"), $request->input("player_number")));
+  //PRE: $current_player is the id of the current player
+  //     $game_id is the id of the game
+  //POST: returns an int representing the id of the next player in the game
+  //      that should go
+  private function get_next_player($current_player, $game_id){
+    $game = Games::where("id", $game_id)->first();
+    $next_player = -1;
+
+    if($current_player == $game->fkey_p1_id){
+      $next_player = $game->fkey_p2_id;
+    }
+    else if($current_player == $game->fkey_p2_id){
+      $next_player = $game->fkey_p3_id;
+    }
+    else if($current_player == $game->fkey_p3_id){
+      $next_player = $game->fkey_p4_id;
+    }
+    else if($current_player == $game->fkey_p4_id){
+      $next_player = $game->fkey_p1_id;
+    }
+
+    return $next_player;
   }
 
-  public function introduce_myself(Request $request){
-    event(new \App\Events\IntroduceMyself($request->input("my_number"), $request->input("my_name")));
+  //aJax call to handle playing cards. Will proadcast cards played to other players
+  public function play(Request $request){
+    //get next player
+    event(new \App\Events\PlayCards($request->cards_played, $request->current_player, $this->get_next_player($request->current_player, $request->game_id)));
   }
 
   public function command_introduction(Request $request){
@@ -77,7 +80,7 @@ class Big2Controller extends Controller
   }
 
   public function pass(Request $request){
-    event(new \App\Events\Pass($request->input("player_number")));
+    event(new \App\Events\Pass($request->current_player, $this->get_next_player($request->current_player, $request->game_id)));
   }
 
   public function create_new_game(Request $request){

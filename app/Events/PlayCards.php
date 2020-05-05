@@ -15,17 +15,19 @@ class PlayCards implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $cards_played;
-    public $player_number;
+    public $current_player;
+    public $next_player;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($cards_played, $player_number)
+    public function __construct($cards_played, $current_player, $next_player)
     {
         $this->cards_played = $cards_played;
-        $this->player_number = $player_number;
+        $this->current_player = $current_player;
+        $this->next_player = $next_player;
     }
 
     /**
