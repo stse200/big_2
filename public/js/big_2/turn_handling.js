@@ -31,7 +31,7 @@ function reset_round(){
 //PRE: none
 //POST: sets this player's hand background color to white
 function reset_turn_notifyer(){
-  $(".hand").css("background-color", "none");
+  $("#action_buttons").css("opacity", ".2");
 }
 
 //PRE: next_player is an int representing the id of the next player
@@ -39,14 +39,14 @@ function reset_turn_notifyer(){
 function set_turn_notifyer(next_player){
 
   curr_turn = next_player
-  $(".p_name").removeClass("current_turn");
+  $(".thinking").css("display", "none");
   if(curr_turn == my_id){
     //ASSERT: it is my turn
-    $(".hand").css("background-color", "#139e06");
+    $("#action_buttons").css("opacity", "1");
   }
   else{
     //ASSERT: Not my turn. showing whose turn it is
-    $("#p_name_" + (curr_turn)).addClass("current_turn");
+    $("#thinking_" + (curr_turn)).css("display", "inline-block");
   }
 
 }
@@ -116,7 +116,7 @@ $("#pass").on("click", function(){
 
     $(".card_selected").addClass("card");
     $(".card_selected").removeClass("card_selected");
-    $(".hand").css("background-color", "#a31414");
+    $("#action_buttons").css("opacity", ".2");
 
     $.ajax({
       type:"POST",

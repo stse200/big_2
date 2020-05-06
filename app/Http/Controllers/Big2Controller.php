@@ -30,6 +30,7 @@ class Big2Controller extends Controller
     }
     // dd($players_keys);
     $curr_id = array_keys($players_keys, $my_id)[0] + 1;
+    $player_number = $curr_id;
     for($i = 0; $i < 4; $i++){
       array_push($players, ["id" => $game["fkey_p" . strval($curr_id) . "_id"], "name" => $game["p" . strval($curr_id) . "_name"]["name"]]);
       $curr_id += 1;
@@ -39,7 +40,7 @@ class Big2Controller extends Controller
     }
 
 
-    return view("big_2/game", compact("my_id", "game_id", "players", "owner"));
+    return view("big_2/game", compact("my_id", "game_id", "players", "owner", "player_number"));
   }
 
   //shuffles deck of cards

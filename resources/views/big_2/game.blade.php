@@ -6,6 +6,8 @@
 <script src="/js/big_2/card_handling.js"></script>
 <script src="/js/big_2/turn_handling.js"></script>
 <script src="/js/big_2/play_validation.js"></script>
+<script src="/js/big_2/thinking.js"></script>
+
 
 <script>
 //global variables
@@ -16,6 +18,7 @@ var played = [];
 var passes = 0;
 var suit_sort = false;
 var my_card_count = 0;
+var player_number = {{$player_number}};
 var owner = {{$owner}}
 init();
 
@@ -82,17 +85,40 @@ function get_scores(){
 <!--Area showing info for other players-->
 <div id="other_players">
   <div class="player player_box_{{$players[1]["id"]}}" id="left_player">
-    <div class="p_name" id="p_name_{{$players[1]["id"]}}">{{$players[1]["name"]}}</div>
+    <div class="p_name" id="p_name_{{$players[1]["id"]}}">
+      <span class="thinking"  id="thinking_{{$players[1]["id"]}}">
+        <i class="fas fa-hourglass-start thinking_1"></i>
+        <i class="fas fa-hourglass-half thinking_2"></i>
+        <i class="fas fa-hourglass-end thinking_3"></i>
+      </span>
+      {{$players[1]["name"]}}
+    </div>
     <div class="num_cards" id="p_cards_{{$players[1]["id"]}}">-</div>
     <div id="p_pass_{{$players[1]["id"]}}" class="pass"><i class="far fa-hand-point-right"></i> Passed</div>
   </div>
+
   <div class="player player_box_{{$players[2]["id"]}}" id="center_player">
-    <div class="p_name" id="p_name_{{$players[2]["id"]}}">{{$players[2]["name"]}}</div>
+    <div class="p_name" id="p_name_{{$players[2]["id"]}}">
+      <span class="thinking"  id="thinking_{{$players[2]["id"]}}">
+        <i class="fas fa-hourglass-start thinking_1"></i>
+        <i class="fas fa-hourglass-half thinking_2"></i>
+        <i class="fas fa-hourglass-end thinking_3"></i>
+      </span>
+      {{$players[2]["name"]}}
+    </div>
     <div class="num_cards" id="p_cards_{{$players[2]["id"]}}">-</div>
     <div id="p_pass_{{$players[2]["id"]}}" class="pass"><i class="far fa-hand-point-right"></i> Passed</div>
   </div>
+
   <div class="player player_box_{{$players[3]["id"]}}" id="right_player">
-    <div class="p_name" id="p_name_{{$players[3]["id"]}}">{{$players[3]["name"]}}</div>
+    <div class="p_name" id="p_name_{{$players[3]["id"]}}">
+      <span class="thinking" id="thinking_{{$players[1]["id"]}}">
+        <i class="fas fa-hourglass-start thinking_1"></i>
+        <i class="fas fa-hourglass-half thinking_2"></i>
+        <i class="fas fa-hourglass-end thinking_3"></i>
+      </span>
+      {{$players[3]["name"]}}
+    </div>
     <div class="num_cards" id="p_cards_{{$players[3]["id"]}}">-</div>
     <div id="p_pass_{{$players[3]["id"]}}" class="pass"><i class="far fa-hand-point-right"></i> Passed</div>
   </div>

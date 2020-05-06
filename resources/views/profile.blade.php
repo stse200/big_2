@@ -82,7 +82,7 @@ $("#change_name_button").on("click", function(){
 @section("content")
 
 <div class="container">
-  <label>Username:</label><span class="value">{{$data->username}}</span><div></div>
+  <label>User ID:</label><span class="value">{{$data->username}}</span><div></div>
   <label>Name:</label><span class="value">{{$data->name}}</span><button class="btn btn-link change_button" data-toggle="modal" data-target="#change_name">Change Name</button>
   <label>Password:</label><span class="value">********</span><button class="btn btn-link change_button" data-toggle="modal" data-target="#change_password">Change Password</button>
 

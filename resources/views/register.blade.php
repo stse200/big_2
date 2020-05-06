@@ -139,12 +139,12 @@ $("#p2").keydown(function(){
 <form id="login_form" method="POST" action="{{action("UsersController@process_register")}}">
     @csrf
   <div class="container">
-    <span>Username:</span>
+    <span>User ID:</span>
     <input id="username" type="text" name="new_username" autocomplete="off" maxlength="10" required>
-    <span style="display: none" id="username_available">Username Available</span>
-    <span style="display: none" id="username_taken" >Username Taken</span>
+    <span style="display: none" id="username_available">User ID Available</span>
+    <span style="display: none" id="username_taken" >User ID Taken</span>
 
-    <span>Name:</span>
+    <span>Your Name:</span>
     <input id="name" type="text" name="new_name" autocomplete="off" maxlength="20" required>
     <span>Password:</span>
     <input id="p1" type="password" name="new_password" maxlength="20" required>

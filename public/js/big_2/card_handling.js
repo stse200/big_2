@@ -16,12 +16,11 @@ $("#deal").on("click", function(){
 function set_hand(deck){
   my_card_count = 13;
   var my_hand = [];
-  var player_number = my_id;
 
   for(var i = (((player_number - 1) * 13)); i < (13 + ((player_number - 1) * 13)); i++){
     my_hand.push(deck[i]);
   }
-
+  console.log(deck);
 
   //FOR TESTING
   // my_hand = [5,9,13,17,21,52,6,10,14,18,22]; straight test
