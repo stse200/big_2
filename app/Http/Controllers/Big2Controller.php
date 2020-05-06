@@ -20,9 +20,16 @@ class Big2Controller extends Controller
     $game_id = $game->id;
     $owner = $my_id == $game->fkey_user_id;
 
+    $players_keys = [];
     $players = [];
 
-    $curr_id = $my_id;
+
+
+    for($i = 1; $i < 5; $i++){
+      array_push($players_keys, $game["fkey_p" . strval($i) . "_id"]);
+    }
+    // dd($players_keys);
+    $curr_id = array_keys($players_keys, $my_id)[0] + 1;
     for($i = 0; $i < 4; $i++){
       array_push($players, ["id" => $game["fkey_p" . strval($curr_id) . "_id"], "name" => $game["p" . strval($curr_id) . "_name"]["name"]]);
       $curr_id += 1;
@@ -30,6 +37,7 @@ class Big2Controller extends Controller
         $curr_id = 1;
       }
     }
+
 
     return view("big_2/game", compact("my_id", "game_id", "players", "owner"));
   }

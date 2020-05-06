@@ -21,6 +21,7 @@ class UsersController extends Controller
 
   public function process_login(Request $request){
     $credentials = $request->only("username", "password");
+    $credentials["username"] = strtolower($credentials["username"]);
     if(Auth::attempt($credentials)){
       //ASSERT: Valid login
       return redirect("home");
@@ -64,7 +65,7 @@ class UsersController extends Controller
   public function process_register(Request $request){
 
     $new_user = new Users;
-    $new_user->username = $request->input("new_username");
+    $new_user->username = strtolower($request->input("new_username"));
     $new_user->name = $request->input("new_name");
     $new_user->password = Hash::make($request->input("new_password"));
 
