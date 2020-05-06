@@ -20,12 +20,12 @@ var owner = {{$owner}}
 init();
 
 $("img").on("click", function(){
-  if ($(this).hasClass("card")){
-    $(this).removeClass("card");
+  if ($(this).hasClass("my_card")){
+    $(this).removeClass("my_card");
     $(this).addClass("card_selected");
   }
   else{
-    $(this).addClass("card");
+    $(this).addClass("my_card");
     $(this).removeClass("card_selected");
   }
 });
@@ -52,165 +52,83 @@ function get_scores(){
 
 @endsection
 
-@section("css")
-<style>
-
-.hand{
-  position: absolute;
-  bottom: 50px;
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  left: 0px;
-}
-
-#play{
-  position: absolute;
-  bottom: 0px;
-  width: 50%;
-  left: 0px;
-  background-color: #139e06;
-  height: 50px;
-  font-size: 20pt;
-  padding: 0px;
-}
-
-.card{
-  cursor: pointer;
-  width: 7.5%;
-}
-
-.played_card{
-  width: 7.5%;
-}
-
-.played_cards{
-  position: absolute;
-  text-align: center;
-  top: 25%;
-  width: 97%;
-  padding: 10px;
-}
-
-.card:hover{
-  position: relative;
-  top: -10px;
-}
-
-.card_selected{
-  max-width: 100%;
-  max-height: 100%;
-  cursor: pointer;
-  width: 7.5%;
-  position: relative;
-  top: -50px;
-}
-
-
-
-.left_player{
-  position: absolute;
-  top: 50%;
-}
-
-.right_player{
-  position: absolute;
-  top: 50%;
-  right: 0px;
-}
-
-.top_player{
-  position: absolute;
-  text-align: center;
-  left: 50%;
-  margin-left: -50px;
-}
-
-.num_cards{
-  text-align: center;
-}
-
-.played_notification{
-  position: absolute;
-  text-align: center;
-  top: 20%;
-  width: 98%;
-}
-
-#deal{
-  background-color: #128c25;
-  font-size: 14pt;
-}
-
-#introduction{
-  background-color: #12418c;
-  font-size: 14pt;
-  color: #ffffff;
-}
-
-#exit{
-  text-decoration: none;
-  color: #ffffff;
-  background-color: #d9182b;
-  font-size: 14pt;
-  padding: 3px;
-}
-
-button{
-  border: none;
-  text-decoration: none;
-  outline: none;
-  cursor: pointer;
-}
-
-#pass{
-  position: absolute;
-  bottom: 0px;
-  width: 50%;
-  right: 0px;
-  background-color: #a31414;
-  color: #ffffff;
-  height: 50px;
-  font-size: 20pt;
-}
-
-.player{
-  width: auto;
-  display: grid;
-  grid-gap: 5px;
-}
-
-.pass{
-  display: none;
-  padding: 5px;
-  color: #ffffff;
-  background-color: #a31414;
-  text-align: center;
-}
-.current_turn{
-  background-color: #139e06;
-}
-
-</style>
-@endsection
-
 @section("head")
   <meta name="csrf-token" content="{{ csrf_token() }}" />
+  <link rel="stylesheet" type="text/css" href="/css/big_2/big_2.css">
+  <link rel="stylesheet" type="text/css" href="/css/big_2/slider_button.css">
 @endsection
 
 @section("content")
+<span style="display: none" id="csrf">{{ csrf_token() }}</span>
 
-  <span style="display: none" id="csrf">{{ csrf_token() }}</span>
-
+<!--Top toolpar on screen-->
+<div class="top_bar">
   @if($owner)
-    <button id="deal">Deal</button>
-    <button id="introduction">Introduce Everyone</button>
-    <button id="test">Count cards</button>
+    <button id="deal" class="btn btn-success">Deal</button>
+  @else
+    <div></div>
   @endif
-  <input type="checkbox" id="toggle_sort">Sort by suit
+  <div  id="switch_box">
+    <label class="switch">
+      <input type="checkbox">
+      <span id="toggle_sort" class="slider round"></span>
+    </label>
+  </div>
+  <span id="sort_label">Sort by Suit</span>
+  <button class="btn btn-primary" id="show_scorecard">Scorecard</button>
+  <a id="exit" class="btn btn-danger" href="{{action("UsersController@home")}}">Exit</a>
+</div>
+
+<!--Area showing info for other players-->
+<div id="other_players">
+  <div class="player player_box_{{$players[1]["id"]}}" id="left_player">
+    <div class="p_name" id="p_name_{{$players[1]["id"]}}">{{$players[1]["name"]}}</div>
+    <div class="num_cards" id="p_cards_{{$players[1]["id"]}}">-</div>
+    <div id="p_pass_{{$players[1]["id"]}}" class="pass">Passed</div>
+  </div>
+  <div class="player player_box_{{$players[2]["id"]}}" id="center_player">
+    <div class="p_name" id="p_name_{{$players[2]["id"]}}">{{$players[2]["name"]}}</div>
+    <div class="num_cards" id="p_cards_{{$players[2]["id"]}}">-</div>
+    <div id="p_pass_{{$players[2]["id"]}}" class="pass">Passed</div>
+  </div>
+  <div class="player player_box_{{$players[3]["id"]}}" id="right_player">
+    <div class="p_name" id="p_name_{{$players[3]["id"]}}">{{$players[3]["name"]}}</div>
+    <div class="num_cards" id="p_cards_{{$players[3]["id"]}}">-</div>
+    <div id="p_pass_{{$players[3]["id"]}}" class="pass">Passed</div>
+  </div>
+</div>
+
+<!--Played cards-->
+<div id="table_center">
+  <div class="played_notification">You played:</div>
+  <div class="played_cards">
+    <img class="played_card" src="/cards/1.png">
+    <img class="played_card" src="/cards/1.png">
+    <img class="played_card" src="/cards/1.png">
+    <img class="played_card" src="/cards/1.png">
+    <img class="played_card" src="/cards/1.png">
 
 
-  <a id="exit" style="position: absolute;right: 5px;" href="{{action("UsersController@home")}}">Exit</a>
+
+  </div>
+</div>
+
+<!--My hand-->
+<div id="my_area">
+  <div class="hand">
+    <!--Cards Here-->
+
+  </div>
+  <div id="action_buttons">
+    <button id="play">Play</button>
+    <button id="pass">Pass</button>
+  </div>
+</div>
+
+
+<div style="display: none">
+
+
 
   <br><br>
   <div class="player_names">
@@ -243,4 +161,6 @@ button{
     <button id="play">Play</button>
     <button id="pass">Pass</button>
   </div>
+
+</div>
 @endsection

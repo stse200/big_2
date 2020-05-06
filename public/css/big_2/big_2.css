@@ -1,0 +1,271 @@
+/* NEW */
+
+
+body{
+  background-color: rgb(242,242,242);
+}
+
+/* TOP BAR */
+.top_bar{
+  background-color: rgb(100,100,100);
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 100px 60px 200px 100px auto;
+  grid-gap: 10px;
+  align-items: center;
+  font-size: 18pt;
+}
+
+#switch_box{
+  padding-top: 9px;
+}
+
+#sort_label{
+  color: rgb(255,255,255);
+}
+
+#exit{
+  width: 100px;
+  right: 0px;
+  justify-self: end;
+}
+
+button{
+  font-size: 18pt;
+}
+
+
+
+
+/* OTHER PLAYERS */
+
+#other_players{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+}
+
+.player{
+  height: 88px;
+}
+
+#left_player{
+  border-left: 3px solid rgb(163,163,163);
+  border-bottom: 3px solid rgb(163,163,163);
+}
+
+#center_player{
+  border-left: 3px solid rgb(163,163,163);
+  border-right: 3px solid rgb(163,163,163);
+  border-bottom: 3px solid rgb(163,163,163);
+}
+
+#right_player{
+  border-right: 3px solid rgb(163,163,163);
+  border-bottom: 3px solid rgb(163,163,163);
+}
+
+.p_name{
+  font-size: 25px;
+}
+
+.pass{
+  background-color: rgb(224,53,27);
+  color: rgb(255,255,255);
+  opacity: .25;
+}
+
+#table_center{
+  display: grid;
+  grid-template-rows: 40px 150px;
+  justify-content: center;
+}
+.played_notification{
+  text-align: center;
+  font-size: 18pt;
+}
+
+.my_card{
+  width: 7.5%;
+}
+
+.my_card:hover{
+  position: relative;
+  top: -10px;
+}
+
+.card_selected{
+  cursor: pointer;
+  width: 7.5%;
+  position: relative;
+  top: -40px;
+}
+
+.played_card{
+  width: 7.5%;
+}
+
+.played_cards{
+  text-align:center;
+}
+
+/* MY HAND */
+#my_area{
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+
+}
+#action_buttons{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+}
+
+
+
+.hand{
+  width: 100%;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+
+/* OLD */
+/*
+.hand{
+  position: absolute;
+  bottom: 50px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  left: 0px;
+}
+
+#play{
+  position: absolute;
+  bottom: 0px;
+  width: 50%;
+  left: 0px;
+  background-color: #139e06;
+  height: 50px;
+  font-size: 20pt;
+  padding: 0px;
+}
+
+.card{
+  cursor: pointer;
+  width: 7.5%;
+}
+
+.played_card{
+  width: 7.5%;
+}
+
+.played_cards{
+  position: absolute;
+  text-align: center;
+  top: 25%;
+  width: 97%;
+  padding: 10px;
+}
+
+.card:hover{
+  position: relative;
+  top: -10px;
+}
+
+.card_selected{
+  max-width: 100%;
+  max-height: 100%;
+  cursor: pointer;
+  width: 7.5%;
+  position: relative;
+  top: -50px;
+}
+
+
+
+.left_player{
+  position: absolute;
+  top: 50%;
+}
+
+.right_player{
+  position: absolute;
+  top: 50%;
+  right: 0px;
+}
+
+.top_player{
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  margin-left: -50px;
+}
+
+.num_cards{
+  text-align: center;
+}
+
+.played_notification{
+  position: absolute;
+  text-align: center;
+  top: 20%;
+  width: 98%;
+}
+
+#deal{
+  background-color: #128c25;
+  font-size: 14pt;
+}
+
+#introduction{
+  background-color: #12418c;
+  font-size: 14pt;
+  color: #ffffff;
+}
+
+#exit{
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #d9182b;
+  font-size: 14pt;
+  padding: 3px;
+}
+
+button{
+  border: none;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+
+#pass{
+  position: absolute;
+  bottom: 0px;
+  width: 50%;
+  right: 0px;
+  background-color: #a31414;
+  color: #ffffff;
+  height: 50px;
+  font-size: 20pt;
+}
+
+.player{
+  width: auto;
+  display: grid;
+  grid-gap: 5px;
+}
+
+.pass{
+  display: none;
+  padding: 5px;
+  color: #ffffff;
+  background-color: #a31414;
+  text-align: center;
+}
+.current_turn{
+  background-color: #139e06;
+} */

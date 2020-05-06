@@ -3,7 +3,7 @@
 function init(){
   //hand image holders
   for(var i = 1; i < 14; i++){
-    $(".hand").append("<img draggable=\"false\" id=\"slot" + i.toString() + "\" class=\"card\">");
+    $(".hand").append("<img draggable=\"false\" id=\"slot" + i.toString() + "\" class=\"my_card\">");
   }
 }
 
@@ -31,7 +31,7 @@ function reset_round(){
 //PRE: none
 //POST: sets this player's hand background color to white
 function reset_turn_notifyer(){
-  $(".hand").css("background-color", "#ffffff");
+  $(".hand").css("background-color", "none");
 }
 
 //PRE: next_player is an int representing the id of the next player
@@ -89,7 +89,7 @@ function check_new_round(just_passed){
 function show_pass(just_passed){
     passes += 1;
     console.log("#p_pass_" + just_passed);
-    $("#p_pass_" + just_passed).css("display", "grid");
+    $("#p_pass_" + just_passed).css("opacity", "1");
 
 }
 
@@ -97,7 +97,7 @@ function show_pass(just_passed){
 //POST: hides all "passed" notifications under player names
 //      puts center card at full opacity
 function hide_passes(){
-  $(".pass").css("display", "none");
+  $(".pass").css("opacity", ".2");
   $(".played_cards").css("opacity", "1");
   passes = 0;
 }

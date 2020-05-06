@@ -105,7 +105,7 @@ function play_cards(){
       //ASSERT: cards_played is a valid play
       $(".card_selected").map(function() {
         $(this).hide();
-        $(this).addClass("card");
+        $(this).addClass("my_card");
         $(this).addClass("played");
         $(this).removeClass("card_selected");
       });
