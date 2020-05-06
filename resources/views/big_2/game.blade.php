@@ -80,6 +80,7 @@ function get_three_diamonds(){
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <link rel="stylesheet" type="text/css" href="/css/big_2/big_2.css">
   <link rel="stylesheet" type="text/css" href="/css/big_2/slider_button.css">
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
 @endsection
 
 @section("content")
@@ -98,7 +99,7 @@ function get_three_diamonds(){
     </label>
   </div>
   <span id="sort_label">Sort by Suit</span>
-  <button class="btn btn-primary" id="show_scorecard">Scorecard</button>
+  <button class="btn btn-primary" data-toggle="modal" data-target="#scorecard" id="show_scorecard">Scorecard</button>
   <a id="exit" class="btn btn-danger" href="{{action("UsersController@home")}}">Exit</a>
 </div>
 
@@ -164,6 +165,50 @@ function get_three_diamonds(){
   </div>
 </div>
 
+
+<!--Scorecard modal-->
+<div class="modal fade" id="scorecard" tabindex="-1" role="dialog" aria-labelledby="scorecard_label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="change_name_label">Scorecard: {{$game_name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+        <div id="scorecard_body">
+            <div class="scorecard_entry">
+              @foreach ($players_keys as $id)
+                @if($players[0]["id"] == $id)
+                  <span>{{$players[0]["name"]}}</span>
+                @elseif ($players[1]["id"] == $id)
+                  <span>{{$players[1]["name"]}}</span>
+                @elseif ($players[2]["id"] == $id)
+                  <span>{{$players[2]["name"]}}</span>
+                @elseif ($players[3]["id"] == $id)
+                  <span>{{$players[3]["name"]}}</span>
+                @endif
+              @endforeach
+          </div>
+
+          <div id="scores">
+
+          </div>
+
+
+
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 @endsection

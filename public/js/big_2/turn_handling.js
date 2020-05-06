@@ -201,3 +201,47 @@ function get_first_player(){
 
   });
 }
+
+//fill scores
+$("#show_scorecard").on("click", function(){
+  $.ajax({
+    type:"POST",
+    url:"/big_2/get_scores",
+    data:{_token: $("#csrf").html(), game_id: game_id},
+    success: function(data){
+      $("#scores").empty();
+      var html;
+      var winner;
+      var running_scores = [0,0,0,0];
+      var curr_scores;
+      for(var i = 0; i < data.scores.length; i++){
+        curr_scores = [data.scores[i]["p1_score"], data.scores[i]["p2_score"], data.scores[i]["p3_score"],data.scores[i]["p4_score"]];
+        winner = curr_scores.indexOf(0);
+        html = "";
+        html += "<div class=\"scorecard_entry\">";
+
+        for(var j = 0; j < 4; j++){
+          //show score on scorecard
+          html += "<span>" + curr_scores[j] + "</span>";
+
+          //subtract point
+          running_scores[j] -= curr_scores[j];
+
+          //add to winner
+          running_scores[winner] += curr_scores[j];
+        }
+        html += "</div><hr>";
+
+        html += "<div class=\"scorecard_entry\">";
+
+        for(var j = 0; j < 4; j++){
+          html += "<span>" + running_scores[j] + "</span>";
+        }
+        html += "</div>";
+        $("#scores").append(html);
+
+
+      }
+    }
+  });
+});

@@ -34,6 +34,7 @@ Route::middleware("auth")->group(function(){
     Route::post("pass", "Big2Controller@pass");
     Route::post("record_score", "Big2Controller@record_score");
     Route::post("get_first_player", "Big2Controller@get_first_player");
+    Route::post("get_scores", "Big2Controller@get_scores");
 
   });
 });

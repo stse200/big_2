@@ -22,7 +22,7 @@ class Big2Controller extends Controller
 
     $players_keys = [];
     $players = [];
-
+    $game_name = $game->name;
 
 
     for($i = 1; $i < 5; $i++){
@@ -40,7 +40,7 @@ class Big2Controller extends Controller
     }
 
 
-    return view("big_2/game", compact("my_id", "owner", "game_id", "players", "player_number", "players_keys"));
+    return view("big_2/game", compact("my_id", "owner", "game_id", "players", "player_number", "players_keys", "game_name"));
   }
 
   //shuffles deck of cards
@@ -152,6 +152,12 @@ class Big2Controller extends Controller
       $result = $game["fkey_p" . strval($last_winner) . "_id"];
     }
     return response()->json(array("first_player" => $result));
+  }
+
+  public function get_scores(Request $request){
+    $scores = Scores::select("p1_score", "p2_score", "p3_score", "p4_score")->where("fkey_game_id", $request->game_id)->get()->toArray();
+    return response()->json(array("scores" => $scores));
+
   }
 
 }
