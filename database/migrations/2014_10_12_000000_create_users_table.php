@@ -15,12 +15,8 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-<<<<<<< HEAD
-            $table->string('name');
-=======
             $table->string("username", 10);
             $table->string('name', 20);
->>>>>>> login
             $table->string('password');
             $table->timestamps();
             $table->softDeletes("deleted_at", 0);
