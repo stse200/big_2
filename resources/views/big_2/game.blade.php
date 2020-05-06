@@ -11,6 +11,7 @@
 
 <script>
 //global variables
+var curr_deck = [];
 var my_id = {{$my_id}};
 var game_id = {{$game_id}};
 var curr_turn = -1;
@@ -19,7 +20,13 @@ var passes = 0;
 var suit_sort = false;
 var my_card_count = 0;
 var player_number = {{$player_number}};
-var owner = {{$owner}}
+@if ($owner)
+  var owner = true;
+@else
+  var owner = false;
+@endif
+var first_hand = false;
+
 init();
 
 $("img").on("click", function(){
@@ -51,6 +58,20 @@ function get_scores(){
   return scores;
 }
 
+//PRE: none
+//POST: returns the player id who is holding the 3 of diamonds
+function get_three_diamonds(){
+
+
+  var index = curr_deck.indexOf(1);
+  console.log("card " + index);
+  index = Math.floor((index - 1) / 13);
+  var players_temp = [{{$players_keys[0]}},{{$players_keys[1]}},{{$players_keys[2]}},{{$players_keys[3]}}];
+  console.log("index " + index);
+  console.log("diamonds " + players_temp[index]);
+  return players_temp[index];
+}
+
 </script>
 
 @endsection
@@ -63,7 +84,6 @@ function get_scores(){
 
 @section("content")
 <span style="display: none" id="csrf">{{ csrf_token() }}</span>
-
 <!--Top toolpar on screen-->
 <div class="top_bar">
   @if($owner)
@@ -112,7 +132,7 @@ function get_scores(){
 
   <div class="player player_box_{{$players[3]["id"]}}" id="right_player">
     <div class="p_name" id="p_name_{{$players[3]["id"]}}">
-      <span class="thinking" id="thinking_{{$players[1]["id"]}}">
+      <span class="thinking" id="thinking_{{$players[3]["id"]}}">
         <i class="fas fa-hourglass-start thinking_1"></i>
         <i class="fas fa-hourglass-half thinking_2"></i>
         <i class="fas fa-hourglass-end thinking_3"></i>

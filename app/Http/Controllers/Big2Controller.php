@@ -40,7 +40,7 @@ class Big2Controller extends Controller
     }
 
 
-    return view("big_2/game", compact("my_id", "game_id", "players", "owner", "player_number"));
+    return view("big_2/game", compact("my_id", "owner", "game_id", "players", "player_number", "players_keys"));
   }
 
   //shuffles deck of cards
@@ -122,6 +122,36 @@ class Big2Controller extends Controller
     }
 
     $new_scores->save();
+  }
+
+  //PRE: game_id has been passed
+  //POST: returns the player ID of the last player to win. If no score records
+  //      are present for the game, -1 is returned
+  public function get_first_player(Request $request){
+    $last_score = Scores::where("fkey_game_id", $request->game_id)->orderBy("created_at", "desc")->first();
+
+    $result = -1;
+
+    if($last_score != null){
+      //ASSERT: scores exist for game
+      $last_winner = -1;
+      if($last_score->p1_score == 0){
+        $last_winner = 1;
+      }
+      else if($last_score->p2_score == 0){
+        $last_winner = 2;
+      }
+      else if($last_score->p3_score == 0){
+        $last_winner = 3;
+      }
+      else{
+        $last_winner = 4;
+      }
+
+      $game = Games::where("id", $request->game_id)->first();
+      $result = $game["fkey_p" . strval($last_winner) . "_id"];
+    }
+    return response()->json(array("first_player" => $result));
   }
 
 }

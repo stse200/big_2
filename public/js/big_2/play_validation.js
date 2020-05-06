@@ -163,25 +163,30 @@ function validate_play(cards_played){
 
   is_valid = true;
 
-  if((played.length == 0) || (cards_played.length == played.length)){
-    if(cards_played.length == 1){
-      //ASSERT: single card played
-      is_valid = validate_single(cards_played);
-    }
-    else if(cards_played.length == 2){
-      //ASSERT: pair played
-      is_valid = validate_pair(cards_played);
-    }
-    else if(cards_played.length == 3){
-      //ASSERT: 3 of a kind played
-      is_valid = validate_three(cards_played);
-    }
-    else if(cards_played.length == 5){
-      //ASSERT: 5 card played
-      is_valid = validate_five(cards_played);
+  if((!first_hand) || (cards_played.includes(1))){
+    if((played.length == 0) || (cards_played.length == played.length)){
+      if(cards_played.length == 1){
+        //ASSERT: single card played
+        is_valid = validate_single(cards_played);
+      }
+      else if(cards_played.length == 2){
+        //ASSERT: pair played
+        is_valid = validate_pair(cards_played);
+      }
+      else if(cards_played.length == 3){
+        //ASSERT: 3 of a kind played
+        is_valid = validate_three(cards_played);
+      }
+      else if(cards_played.length == 5){
+        //ASSERT: 5 card played
+        is_valid = validate_five(cards_played);
+      }
+      else{
+        //ASSERT: invalid number of cards played
+        is_valid = false;
+      }
     }
     else{
-      //ASSERT: invalid number of cards played
       is_valid = false;
     }
   }

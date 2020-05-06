@@ -17,6 +17,7 @@ function reset_round(){
   my_card_count = 0;
 
   //reset player notification
+  $(".thinking").css("display", "none");
   passes = 0;
   $(".played").removeClass("played");
   $(".played_notification").html("");
@@ -126,10 +127,6 @@ $("#pass").on("click", function(){
   }
 });
 
-$("#test").on("click", function(){
-  check_out();
-});
-
 //PRE: none
 //POST: if a player is out, shows notification on who is out. Writes scores to
 //      DB if player is game owner
@@ -160,7 +157,7 @@ function check_out(){
 
   if(end_round && owner){
     //ASSERT: Someone is out. Recording scores
-
+    $("#action_buttons").css("opacity", ".2");
     $.ajax({
       type:"POST",
       url:"/big_2/record_score",
@@ -169,6 +166,38 @@ function check_out(){
   }
 
   return end_round;
+}
 
 
+
+//PRE: none
+//POST: returns the player id of the first player to go in the round
+function get_first_player(){
+  $.ajax({
+    type:"POST",
+    url:"/big_2/get_first_player",
+    data:{_token: $("#csrf").html(), game_id: game_id},
+    success: function(data){
+      if(data.first_player == -1){
+        //ASSERT: no previous games 3 of diamonds goes first
+        curr_turn = get_three_diamonds();
+        first_hand = true;
+      }
+      else{
+        //ASSERT: found first player based off previous round
+        curr_turn = data.first_player;
+        first_hand = false;
+      }
+      if(curr_turn == my_id){
+        //I go first
+        console.log(curr_turn);
+        $("#action_buttons").css("opacity", "1");
+      }
+      else{
+        //ASSERT: I do not go first
+        $("#thinking_" + (curr_turn)).css("display", "inline-block");
+      }
+    }
+
+  });
 }

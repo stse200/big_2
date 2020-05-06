@@ -123,7 +123,7 @@ button{
   height: 75px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-
+  opacity: .2
 }
 
 #action_buttons button{

@@ -14,13 +14,13 @@ $("#deal").on("click", function(){
 //PRE: deck is an array of ints from 1 to 52 representing a deck of cards
 //POST: sets the players hands to 13 cards from teh deck
 function set_hand(deck){
+  curr_deck = deck;
   my_card_count = 13;
   var my_hand = [];
 
   for(var i = (((player_number - 1) * 13)); i < (13 + ((player_number - 1) * 13)); i++){
     my_hand.push(deck[i]);
   }
-  console.log(deck);
 
   //FOR TESTING
   // my_hand = [5,9,13,17,21,52,6,10,14,18,22]; straight test
@@ -37,6 +37,7 @@ function set_hand(deck){
   var slots = ["#slot1", "#slot2", "#slot3", "#slot4", "#slot5", "#slot6", "#slot7", "#slot8", "#slot9", "#slot10", "#slot11", "#slot12", "#slot13"];
 
   display_cards(my_hand, slots);
+  get_first_player();
 }
 
 //PRE: hand is an array of integer between 1 and 52 of length between 1 and 13
