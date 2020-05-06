@@ -111,7 +111,7 @@ document.body.onkeyup = function(e){
 }
 
 $("#pass").on("click", function(){
-  if((curr_turn == my_id) && (played.length != 0)){
+  if((curr_turn == my_id) && (played.length != 0) && ($(".card_selected").length == 0)){
     //ASSERT: can pass now
 
     $(".card_selected").addClass("card");

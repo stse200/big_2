@@ -84,32 +84,25 @@ function get_scores(){
   <div class="player player_box_{{$players[1]["id"]}}" id="left_player">
     <div class="p_name" id="p_name_{{$players[1]["id"]}}">{{$players[1]["name"]}}</div>
     <div class="num_cards" id="p_cards_{{$players[1]["id"]}}">-</div>
-    <div id="p_pass_{{$players[1]["id"]}}" class="pass">Passed</div>
+    <div id="p_pass_{{$players[1]["id"]}}" class="pass"><i class="far fa-hand-point-right"></i> Passed</div>
   </div>
   <div class="player player_box_{{$players[2]["id"]}}" id="center_player">
     <div class="p_name" id="p_name_{{$players[2]["id"]}}">{{$players[2]["name"]}}</div>
     <div class="num_cards" id="p_cards_{{$players[2]["id"]}}">-</div>
-    <div id="p_pass_{{$players[2]["id"]}}" class="pass">Passed</div>
+    <div id="p_pass_{{$players[2]["id"]}}" class="pass"><i class="far fa-hand-point-right"></i> Passed</div>
   </div>
   <div class="player player_box_{{$players[3]["id"]}}" id="right_player">
     <div class="p_name" id="p_name_{{$players[3]["id"]}}">{{$players[3]["name"]}}</div>
     <div class="num_cards" id="p_cards_{{$players[3]["id"]}}">-</div>
-    <div id="p_pass_{{$players[3]["id"]}}" class="pass">Passed</div>
+    <div id="p_pass_{{$players[3]["id"]}}" class="pass"><i class="far fa-hand-point-right"></i> Passed</div>
   </div>
 </div>
 
 <!--Played cards-->
 <div id="table_center">
-  <div class="played_notification">You played:</div>
+  <div class="played_notification"></div>
   <div class="played_cards">
-    <img class="played_card" src="/cards/1.png">
-    <img class="played_card" src="/cards/1.png">
-    <img class="played_card" src="/cards/1.png">
-    <img class="played_card" src="/cards/1.png">
-    <img class="played_card" src="/cards/1.png">
-
-
-
+    <!--Cards played in center-->
   </div>
 </div>
 
@@ -120,47 +113,11 @@ function get_scores(){
 
   </div>
   <div id="action_buttons">
-    <button id="play">Play</button>
-    <button id="pass">Pass</button>
+    <button id="play"> <i class="fas fa-arrow-circle-up"></i> Play</button>
+    <button id="pass"><i class="fas fa-times"></i> Pass</button>
   </div>
 </div>
 
 
-<div style="display: none">
 
-
-
-  <br><br>
-  <div class="player_names">
-    <div class="player right_player">
-      <div class="p_name" id="p_name_{{$players[1]["id"]}}">{{$players[1]["name"]}}</div>
-      <div class="num_cards" id="p_cards_{{$players[1]["id"]}}"></div>
-      <div id="p_pass_{{$players[1]["id"]}}" class="pass">Passed</div>
-    </div>
-    <div class="player top_player">
-      <div class="p_name" id="p_name_{{$players[2]["id"]}}">{{$players[2]["name"]}}</div>
-      <div class="num_cards" id="p_cards_{{$players[2]["id"]}}"></div>
-      <div id="p_pass_{{$players[2]["id"]}}" class="pass">Passed</div>
-    </div>
-    <div class="player left_player">
-      <div class="p_name" id="p_name_{{$players[3]["id"]}}">{{$players[3]["name"]}}</div>
-      <div class="num_cards" id="p_cards_{{$players[3]["id"]}}"></div>
-      <div id="p_pass_{{$players[3]["id"]}}" class="pass">Passed</div>
-    </div>
-  </div>
-
-  <div class="played_notification"></div>
-  <div class="played_cards">
-
-  </div>
-
-  <div style="text-align:center">
-    <div class="hand">
-      <!--Cards Here-->
-    </div>
-    <button id="play">Play</button>
-    <button id="pass">Pass</button>
-  </div>
-
-</div>
 @endsection

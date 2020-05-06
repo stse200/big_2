@@ -71,20 +71,22 @@ function set_played_cards(played_cards){
 $("#toggle_sort").on("click", function(){
   suit_sort = !suit_sort;
 
-  $(".card_selected").addClass("card");
+  $(".card_selected").addClass("my_card");
   $(".card_selected").removeClass("card_selected");
 
   var hand = [];
   var slots = [];
 
-  $(".card").map(function() {
+  $(".my_card").map(function() {
     if(!$(this).hasClass("played")){
       hand.push(parseInt($(this).attr("card")));
       slots.push("#" + $(this).attr("id"));
     }
   });
 
-  display_cards(hand, slots);
+  if((hand.length > 0) && (!isNaN(hand[0]))){
+    display_cards(hand, slots);
+  }
 
 });
 

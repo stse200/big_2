@@ -78,7 +78,7 @@ button{
 #table_center{
   display: grid;
   grid-template-rows: 40px 150px;
-  justify-content: center;
+  width: 100%;
 }
 .played_notification{
   text-align: center;
@@ -107,6 +107,8 @@ button{
 
 .played_cards{
   text-align:center;
+  width: 100%;
+  height: auto;
 }
 
 /* MY HAND */
@@ -118,9 +120,14 @@ button{
 
 }
 #action_buttons{
+  height: 75px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 
+}
+
+#action_buttons button{
+font-size: 30pt;
 }
 
 
@@ -129,6 +136,19 @@ button{
   width: 100%;
   text-align: center;
   padding-bottom: 10px;
+}
+
+#play{
+  background-color: rgb(48,166,74);
+  color: rgb(255,255,255);
+  outline: none;
+
+}
+
+#pass{
+  background-color: rgb(218,56,73);
+  color: rgb(255,255,255);
+  outline: none;
 }
 
 
