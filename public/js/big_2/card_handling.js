@@ -94,6 +94,7 @@ $("#toggle_sort").on("click", function(){
 function play_cards(){
 
   if((curr_turn == my_id || (curr_turn == -1)) && ($(".card_selected").length > 0)) {
+    console.log(curr_turn);
     //ASSERT: can play cards
 
     //get value of cards played and hide played cards
@@ -103,7 +104,10 @@ function play_cards(){
     $(".card_selected").map(function() {
       cards_played.push($(this).attr("card"));
     });
+    console.log(cards_played);
     if(validate_play(cards_played)){
+      console.log("validate");
+      
       //ASSERT: cards_played is a valid play
       $(".card_selected").map(function() {
         $(this).hide();

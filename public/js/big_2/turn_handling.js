@@ -39,7 +39,8 @@ function reset_turn_notifyer(){
 //POST: If this player is next, sets hand background color to green
 function set_turn_notifyer(next_player){
 
-  curr_turn = next_player
+  curr_turn = next_player;
+
   $(".thinking").css("display", "none");
   if(curr_turn == my_id){
     //ASSERT: it is my turn

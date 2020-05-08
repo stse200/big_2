@@ -8,6 +8,7 @@ Echo.channel('table').listen('PlayCards', (e) => {
   hide_passes();
   reset_turn_notifyer();
   set_player_card_notification(e.current_player, e.cards_played);
+  first_hand = false;
   if(!check_out()){
     set_turn_notifyer(parseInt(e.next_player));
     set_cards_played_notification(e.current_player);
