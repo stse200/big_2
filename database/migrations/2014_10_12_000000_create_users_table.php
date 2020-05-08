@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string("username", 10);
             $table->string('name', 20);
             $table->string('password');
+            $table->boolean("is_admin");
             $table->timestamps();
             $table->softDeletes("deleted_at", 0);
         });

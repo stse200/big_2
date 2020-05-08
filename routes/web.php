@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Middleware\CheckAdmin;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +25,11 @@ Route::middleware("auth")->group(function(){
   route::post("find_username", "UsersController@find_username");
   Route::post("change_password", "UsersController@change_password");
   Route::post("change_name", "UsersController@change_name");
+
+  Route::middleware("CheckAdmin")->group(function(){
+    Route::get("admin", "UsersController@admin");
+  });
+
 
   //big 2
   Route::prefix("big_2")->group(function(){

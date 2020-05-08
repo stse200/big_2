@@ -68,6 +68,7 @@ class UsersController extends Controller
     $new_user->username = strtolower($request->input("new_username"));
     $new_user->name = $request->input("new_name");
     $new_user->password = Hash::make($request->input("new_password"));
+    $new_user->is_admin = false;
 
     $new_user->save();
 
@@ -75,7 +76,8 @@ class UsersController extends Controller
   }
 
   public function home(){
-    return view("home");
+    $is_admin = Users::select("is_admin")->where("id", Auth::user()->id)->first()->is_admin;
+    return view("home", compact("is_admin"));
   }
 
   public function new_game(){
@@ -112,6 +114,10 @@ class UsersController extends Controller
     $user->save();
 
     return redirect("profile");
+  }
+
+  public function admin(){
+    return view("admin");
   }
 
 
