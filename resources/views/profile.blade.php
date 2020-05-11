@@ -37,6 +37,13 @@ label{
   grid-gap: 5px;
 }
 
+.input_error{
+  color: rgb(184,9,32);
+  display: none;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
 
 
 </style>
@@ -48,31 +55,38 @@ label{
 <script>
 
 $("#change_password_button").on("click", function(){
-  var letters = /^[0-9a-zA-Z ]+$/;
 
   if($("#p1").val() == $("#p2").val()) {
-    if($("#p1").val().match(letters)){
+    if(($("#p1").val().length >= 8) && ($("#p1").val().length <= 30)){
       $("#change_password_form").submit();
     }
     else{
-      alert("Letters, numbers, and spaces only");
+      $("#password_length_error").css("display", "grid");
     }
   }
   else{
-    alert("Passwords do not match");
+    $("#password_error").css("display", "grid");
   }
+});
+$("#p1").keydown(function(){
+  $("#password_length_error").css("display", "none");
+  $("#password_error").css("display", "none");
+
+
 });
 
 $("#change_name_button").on("click", function(){
-  var letters = /^[0-9a-zA-Z ]+$/;
+  var letters = /^[0-9a-zA-Z]+$/;
 
   if($("#new_name").val().match(letters)){
     $("#change_name_form").submit();
   }
   else{
-    alert("Letters, numbers, and spaces only");
+    $("#name_error").css("display", "inline-block");
   }
-
+});
+$("#new_name").keydown(function(){
+  $("#name_error").css("display", "none");
 });
 
 </script>
@@ -105,6 +119,8 @@ $("#change_name_button").on("click", function(){
           <input id="p1" class="form-control" type="password" name="new_password">
           <label>Confirm Password:</label>
           <input id="p2" class="form-control" type="password">
+          <span class="input_error" id="password_error">Passwords do not match</span>
+          <span class="input_error" id="password_length_error">Password must be between 8 and 30 characters long</span>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -132,8 +148,10 @@ $("#change_name_button").on("click", function(){
           <label>Current Name:</label>
           <input class="form-control" type="text"  value="{{$data->name}}" disabled>
           <label>New Name:</label>
-          <input id="new_name" class="form-control" name="new_name" type="text" autocomplete="off">
+          <input maxlength="20" id="new_name" class="form-control" name="new_name" type="text" autocomplete="off">
+          <span class="input_error" id="name_error">Name must be letters and numbers only.</span>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
           <button id="change_name_button" type="button" class="btn btn-primary">Change Name</button>

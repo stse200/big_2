@@ -105,17 +105,17 @@ function get_three_diamonds(){
 
 <!--Area showing info for other players-->
 <div id="other_players">
-  <div class="player player_box_{{$players[1]["id"]}}" id="left_player">
-    <div class="p_name" id="p_name_{{$players[1]["id"]}}">
-      <span class="thinking"  id="thinking_{{$players[1]["id"]}}">
+  <div class="player player_box_{{$players[3]["id"]}}" id="left_player">
+    <div class="p_name" id="p_name_{{$players[3]["id"]}}">
+      <span class="thinking" id="thinking_{{$players[3]["id"]}}">
         <i class="fas fa-hourglass-start thinking_1"></i>
         <i class="fas fa-hourglass-half thinking_2"></i>
         <i class="fas fa-hourglass-end thinking_3"></i>
       </span>
-      {{$players[1]["name"]}}
+      {{$players[3]["name"]}}
     </div>
-    <div class="num_cards" id="p_cards_{{$players[1]["id"]}}">-</div>
-    <div id="p_pass_{{$players[1]["id"]}}" class="pass"><i class="far fa-hand-point-right"></i> Passed</div>
+    <div class="num_cards" id="p_cards_{{$players[3]["id"]}}">-</div>
+    <div id="p_pass_{{$players[3]["id"]}}" class="pass"><i class="far fa-hand-point-left"></i> Passed</div>
   </div>
 
   <div class="player player_box_{{$players[2]["id"]}}" id="center_player">
@@ -128,22 +128,25 @@ function get_three_diamonds(){
       {{$players[2]["name"]}}
     </div>
     <div class="num_cards" id="p_cards_{{$players[2]["id"]}}">-</div>
-    <div id="p_pass_{{$players[2]["id"]}}" class="pass"><i class="far fa-hand-point-right"></i> Passed</div>
+    <div id="p_pass_{{$players[2]["id"]}}" class="pass"><i class="far fa-hand-point-left"></i> Passed</div>
   </div>
 
-  <div class="player player_box_{{$players[3]["id"]}}" id="right_player">
-    <div class="p_name" id="p_name_{{$players[3]["id"]}}">
-      <span class="thinking" id="thinking_{{$players[3]["id"]}}">
+
+  <div class="player player_box_{{$players[1]["id"]}}" id="right_player">
+    <div class="p_name" id="p_name_{{$players[1]["id"]}}">
+      <span class="thinking"  id="thinking_{{$players[1]["id"]}}">
         <i class="fas fa-hourglass-start thinking_1"></i>
         <i class="fas fa-hourglass-half thinking_2"></i>
         <i class="fas fa-hourglass-end thinking_3"></i>
       </span>
-      {{$players[3]["name"]}}
+      {{$players[1]["name"]}}
     </div>
-    <div class="num_cards" id="p_cards_{{$players[3]["id"]}}">-</div>
-    <div id="p_pass_{{$players[3]["id"]}}" class="pass"><i class="far fa-hand-point-right"></i> Passed</div>
+    <div class="num_cards" id="p_cards_{{$players[1]["id"]}}">-</div>
+    <div id="p_pass_{{$players[1]["id"]}}" class="pass"><i class="far fa-hand-point-left"></i> Passed</div>
   </div>
 </div>
+
+
 
 <!--Played cards-->
 <div id="table_center">
