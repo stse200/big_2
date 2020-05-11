@@ -28,6 +28,7 @@ Route::middleware("auth")->group(function(){
 
   Route::middleware("CheckAdmin")->group(function(){
     Route::get("admin", "UsersController@admin");
+    Route::post("admin_change_password", "UsersController@admin_change_password");
   });
 
 

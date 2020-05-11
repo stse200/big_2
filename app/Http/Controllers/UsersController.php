@@ -120,5 +120,13 @@ class UsersController extends Controller
     return view("admin");
   }
 
+  public function admin_change_password(Request $request){
+    $user = Users::where("username", $request->username)->first();
+    $user->password = Hash::make($request->input("new_password"));
+    $user->save();
+
+    return redirect("admin");
+  }
+
 
 }
