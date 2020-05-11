@@ -158,6 +158,7 @@ function check_out(){
 
   if(end_round && owner){
     //ASSERT: Someone is out. Recording scores
+    $(".thinking").css("display", "none");
     $("#action_buttons").css("opacity", ".2");
     $.ajax({
       type:"POST",
@@ -215,21 +216,48 @@ $("#show_scorecard").on("click", function(){
       var winner;
       var running_scores = [0,0,0,0];
       var curr_scores;
+      var print_scores;
+      var multi;
       for(var i = 0; i < data.scores.length; i++){
         curr_scores = [data.scores[i]["p1_score"], data.scores[i]["p2_score"], data.scores[i]["p3_score"],data.scores[i]["p4_score"]];
         winner = curr_scores.indexOf(0);
         html = "";
         html += "<div class=\"scorecard_entry\">";
+        print_scores = [0,0,0,0];
 
+        //calculate winner's score
+        for(var j = 0; j < 4; j++){
+          //calculate mutliplyer, if any
+          multi = 1;
+          if(curr_scores[j] == 13){
+            //ASSERT: triple score
+            multi = 3;
+          }
+          else if((curr_scores[j] >= 10) && (curr_scores[j] <= 12)){
+            //ASSERT: double score
+            multi = 2;
+          }
+
+          print_scores[winner] += curr_scores[j] * multi;
+          print_scores[j] = curr_scores[j] * multi;
+        }
+
+        //print scores;
         for(var j = 0; j < 4; j++){
           //show score on scorecard
-          html += "<span>" + curr_scores[j] + "</span>";
+
+          if(j == winner){
+            html += "<span class=\"winner\">+" + print_scores[j] + "</span>";
+          }
+          else{
+            html += "<span class=\"looser\">-" + print_scores[j] + "</span>";
+          }
 
           //subtract point
-          running_scores[j] -= curr_scores[j];
+          running_scores[j] -= print_scores[j];
 
           //add to winner
-          running_scores[winner] += curr_scores[j];
+          running_scores[winner] += print_scores[j];
         }
         html += "</div><hr>";
 
