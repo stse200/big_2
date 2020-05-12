@@ -87,7 +87,7 @@ $("#submit_form").on("click", function(){
     <input id="password" class="input_box" type="password" name="password" required>
 
     <a id="submit_form"><i class="fas fa-sign-in-alt"></i> Login</a>
-    <a id="create_account" href="{{action("UsersController@register")}}">Create Account</a>
+    <a id="create_account" href="{{action("UsersController@register")}}">Create An Account</a>
   </div>
 </form>
 
