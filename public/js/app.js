@@ -28806,6 +28806,7 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   //forceTLS: true,
   wsHost: window.location.hostname,
   wsPort: 56890,
+  wssPort: 56890,
   encrypted: true
 });
 
