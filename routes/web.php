@@ -14,7 +14,7 @@ use App\Http\Middleware\CheckAdmin;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::group(['scheme' => 'https'], function () {
+
 
 
 
@@ -57,5 +57,3 @@ Route::group(['scheme' => 'https'], function () {
   Route::post("process_login", "UsersController@process_login");
 
   Route::get("logout", "UsersController@logout");
-
-});
