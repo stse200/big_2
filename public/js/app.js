@@ -28805,7 +28805,8 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   cluster: "mt1",
   //forceTLS: true,
   wsHost: window.location.hostname,
-  wsPort: 6001
+  wsPort: 6001,
+  encrypted: true
 });
 
 /***/ }),
@@ -28828,8 +28829,8 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/stephentse/Personal Projects/Coding/big_2_online/websockets/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/stephentse/Personal Projects/Coding/big_2_online/websockets/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/stephentse/Personal_Projects/Coding/big_2_online/big_2/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/stephentse/Personal_Projects/Coding/big_2_online/big_2/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
