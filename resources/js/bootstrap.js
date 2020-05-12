@@ -29,5 +29,3 @@ window.Echo = new Echo({
     wsPort: 6001,
     encrypted: true
 });
-
-header('Access-Control-Allow-Origin: *');
