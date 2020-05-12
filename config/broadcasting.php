@@ -39,7 +39,7 @@ return [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'useTLS' => false,
                 'host' => 'https://www.stephentse.com',
-                'port' => 6001,
+                'port' => 56890,
                 'scheme' => 'https'
             ],
         ],
