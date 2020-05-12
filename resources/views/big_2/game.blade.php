@@ -98,8 +98,9 @@ function get_three_diamonds(){
       <span id="toggle_sort" class="slider round"></span>
     </label>
   </div>
-  <span id="sort_label">Sort by Suit</span>
+  <span class="sort_label">Sort by Suit</span>
   <button class="btn btn-primary" data-toggle="modal" data-target="#scorecard" id="show_scorecard">Scorecard</button>
+  <div class="sort_label">My Cards: <span id="my_card_count"></span></div>
   <a id="exit" class="btn btn-danger" href="{{action("UsersController@home")}}">Exit</a>
 </div>
 

@@ -15,6 +15,7 @@ function reset_round(){
   $(".played_cards").empty();
   played = [];
   my_card_count = 0;
+  $("#my_card_count").html(13);
 
   //reset player notification
   $(".thinking").css("display", "none");
@@ -237,11 +238,11 @@ $("#show_scorecard").on("click", function(){
             //ASSERT: double score
             multi = 2;
           }
-
-          print_scores[winner] += curr_scores[j] * multi;
-          print_scores[j] = curr_scores[j] * multi;
+          if(j != winner){
+            print_scores[j] = curr_scores[j] * multi;
+          }
+            print_scores[winner] += curr_scores[j] * multi;
         }
-
         //print scores;
         for(var j = 0; j < 4; j++){
           //show score on scorecard

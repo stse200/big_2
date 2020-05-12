@@ -107,7 +107,7 @@ function play_cards(){
     console.log(cards_played);
     if(validate_play(cards_played)){
       console.log("validate");
-      
+
       //ASSERT: cards_played is a valid play
       $(".card_selected").map(function() {
         $(this).hide();
@@ -117,6 +117,7 @@ function play_cards(){
       });
 
       my_card_count -= cards_played.length;
+      $("#my_card_count").html(my_card_count);
 
       $.ajax({
         type:"POST",
