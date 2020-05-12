@@ -72,6 +72,6 @@
   </body>
 </html>
 
-<script type="text/javascript" src="<?php echo asset('assets/js/jquery.js'); ?>"></script>
+<script type="text/javascript" src="/js/jquery.js"></script>
 
 @yield('javascript')
