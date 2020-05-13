@@ -1,14 +1,17 @@
 //Deal all player's cards
 $("#deal").on("click", function(){
 
-  curr_turn = -1;
-  $(".current_turn").removeClass("current_turn");
+  if(curr_turn < 0){
 
-    $.ajax({
-      type:"POST",
-      url:"/big_2/deal",
-      data:{_token: $("#csrf").html()},
-    });
+    curr_turn = -1;
+    $(".current_turn").removeClass("current_turn");
+
+      $.ajax({
+        type:"POST",
+        url:"/big_2/deal",
+        data:{_token: $("#csrf").html()},
+      });
+    }
 });
 
 //PRE: deck is an array of ints from 1 to 52 representing a deck of cards

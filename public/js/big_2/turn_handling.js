@@ -149,6 +149,7 @@ function check_out(){
     //ASSERT: I am out
     end_round = true;
     $(".played_notification").html("You went out!");
+    curr_turn = -2;
   }
   else if(someone_out){
     //ASSERT: somone who is not me is out
