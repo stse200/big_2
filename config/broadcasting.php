@@ -38,9 +38,9 @@ return [
             'options' => [
                 'cluster' => env('PUSHER_APP_CLUSTER'),
                 'useTLS' => false,
-                'host' => 'localhost',
+                'host' => 'stephentse.com',
                 'port' => 6001,
-                'scheme' => 'http'
+                'scheme' => 'https'
             ],
         ],
 
