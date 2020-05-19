@@ -26,6 +26,8 @@ window.Echo = new Echo({
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     //forceTLS: true,
     wssHost: 'websocket.stephentse.com',
+    wsHost: 'websocket.stephentse.com',
+    wsPort: 56890,
     wssPort: 56890,
     encrypted: true
 });
