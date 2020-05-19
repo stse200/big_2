@@ -24,10 +24,10 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    //forceTLS: true,
-    // wssHost: 'https://websocket.stephentse.com/',
-    // wsHost: 'https://websocket.stephentse.com/',
-    // wsPort: 56890,
-    // wssPort: 56890,
+    forceTLS: true,
+    wssHost: "https://websocket.stephentse.com/",
+    wsHost: "https://websocket.stephentse.com/",
+    wsPort: "56890",
+    wssPort: "56890",
     encrypted: true
 });
