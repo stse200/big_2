@@ -28804,11 +28804,11 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   key: "eszCdxReNMWF1qjl4mfJuC3odyPrVgMv",
   cluster: "mt1",
   forceTLS: false,
-  wssHost: "websocket.stephentse.com/",
-  wsHost: "websocket.stephentse.com/",
-  wsPort: "56890",
-  wssPort: "56890",
-  encrypted: true,
+  wssHost: window.location.hostname,
+  wsHost: window.location.hostname,
+  wsPort: "6001",
+  wssPort: "6001",
+  // encrypted: true,
   enabledTransports: ['ws', 'wss']
 });
 
