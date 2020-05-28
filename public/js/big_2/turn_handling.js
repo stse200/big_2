@@ -91,7 +91,6 @@ function check_new_round(just_passed){
 //POST: displays "passed" under the appropriate player.
 function show_pass(just_passed){
     passes += 1;
-    console.log("#p_pass_" + just_passed);
     $("#p_pass_" + just_passed).css("opacity", "1");
 
 }
@@ -194,7 +193,6 @@ function get_first_player(){
       }
       if(curr_turn == my_id){
         //I go first
-        console.log(curr_turn);
         $("#action_buttons").css("opacity", "1");
       }
       else{

@@ -43,12 +43,20 @@ $("img").on("click", function(){
 //PRE: none
 //POST: returns an array of the current card cound of each player
 function get_scores(){
-  var scores = [];
+  var curr_player = player_number
 
-  scores.push($("#p_cards_" + {{$players[0]["id"]}}).html());
-  scores.push($("#p_cards_" + {{$players[1]["id"]}}).html());
-  scores.push($("#p_cards_" + {{$players[2]["id"]}}).html());
-  scores.push($("#p_cards_" + {{$players[3]["id"]}}).html());
+  var scores = [];
+  var scores_temp = [];
+
+  scores_temp.push($("#p_cards_" + {{$players[0]["id"]}}).html());
+  scores_temp.push($("#p_cards_" + {{$players[1]["id"]}}).html());
+  scores_temp.push($("#p_cards_" + {{$players[2]["id"]}}).html());
+  scores_temp.push($("#p_cards_" + {{$players[3]["id"]}}).html());
+
+
+  for(var i = player_number; i < player_number + 4; i++){
+    scores[(i - 1) % 4] = scores_temp[i - player_number];
+  }
 
   for(var i = 0; i < 4; i++){
     if(scores[i] == null){
@@ -64,11 +72,8 @@ function get_three_diamonds(){
 
 
   var index = curr_deck.indexOf(1);
-  console.log("card " + index);
   index = Math.floor((index - 1) / 13);
   var players_temp = [{{$players_keys[0]}},{{$players_keys[1]}},{{$players_keys[2]}},{{$players_keys[3]}}];
-  console.log("index " + index);
-  console.log("diamonds " + players_temp[index]);
   return players_temp[index];
 }
 
