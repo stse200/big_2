@@ -165,4 +165,21 @@ class Big2Controller extends Controller
 
   }
 
+  public function edit_game(Request $request){
+    $game = Games::where("id", $request->id)->first();
+    if($game->fkey_user_id == Auth::user()->id){
+      //User is owner of game
+      if($request->cumulative_scoring == "true"){
+        $game->cumulative_scoring = 1;
+      }
+      else{
+        $game->cumulative_scoring = 0;
+      }
+      $game->save();
+    }
+
+
+    return redirect("my_games");
+  }
+
 }
