@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Scores;
 use App\Games;
+Use Carbon\Carbon;
 
 
 class Big2Controller extends Controller
@@ -176,6 +177,19 @@ class Big2Controller extends Controller
         $game->cumulative_scoring = 0;
       }
       $game->save();
+    }
+
+
+    return redirect("my_games");
+  }
+
+  public function delete_game(Request $request){
+    $game = games::where("id", $request->id)->first();
+
+    if($game->fkey_user_id == Auth::user()->id){
+      //User is owner of game
+      $game->delete();
+
     }
 
 

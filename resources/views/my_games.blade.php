@@ -50,6 +50,11 @@ $(".edit").on("click", function(){
   }
 });
 
+$(".delete").on("click", function(){
+  $("#delete_game_id").val($(this).data("id"));
+  $("#delete_game_name").html(($(this).data("name")));
+});
+
 </script>
 
 @endsection
@@ -67,7 +72,7 @@ $(".edit").on("click", function(){
           <a href="{{action("Big2Controller@game", ["id" => $game_owned->id])}}" class="btn btn-success play"><i class="fas fa-play"></i> Play</a>
           <button class="btn btn-dark view"><i class="fas fa-eye"></i> View</button>
           <button class="btn btn-primary edit" data-id="{{$game_owned->id}}" data-name="{{$game_owned->name}}" data-cumulative_scoring="{{$game_owned->cumulative_scoring}}" data-toggle="modal" data-target="#edit_game"><i class="fas fa-pencil-alt"></i> Edit</button>
-          <button class="btn btn-danger delete"><i class="fas fa-trash-alt"></i> Delete</button>
+          <button class="btn btn-danger delete" data-id="{{$game_owned->id}}" data-name="{{$game_owned->name}}" data-toggle="modal" data-target="#delete_game"><i class="fas fa-trash-alt"></i> Delete</button>
         </div>
       </li>
     @endforeach
@@ -90,5 +95,6 @@ $(".edit").on("click", function(){
 </div>
 
 @include("partials.edit_game_modal")
+@include("partials.delete_game_modal");
 
 @endsection

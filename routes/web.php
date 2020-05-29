@@ -29,6 +29,8 @@ use App\Http\Middleware\CheckAdmin;
     Route::post("change_password", "UsersController@change_password");
     Route::post("change_name", "UsersController@change_name");
     Route::post("edit_game", "Big2Controller@edit_game");
+    Route::post("delete_game", "Big2Controller@delete_game");
+
 
     Route::middleware("CheckAdmin")->group(function(){
       Route::get("admin", "UsersController@admin");
