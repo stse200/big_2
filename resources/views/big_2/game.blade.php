@@ -20,6 +20,13 @@ var passes = 0;
 var suit_sort = false;
 var my_card_count = 0;
 var player_number = {{$player_number}};
+
+@if($cumulative_scoring)
+  var cumulative_scoring = true;
+@else
+  var cumulative_scoring = false;
+@endif
+
 @if ($owner)
   var owner = true;
 @else
