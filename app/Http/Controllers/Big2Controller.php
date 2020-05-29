@@ -105,6 +105,8 @@ class Big2Controller extends Controller
     $new_game->fkey_p3_id = $request->p3;
     $new_game->fkey_p4_id = $request->p4;
 
+    $new_game->cumulative_scoring = $request->cumulative_scoring == "true";
+
 
     $new_game->save();
 
