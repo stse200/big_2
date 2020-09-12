@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Games extends Model
 {
+  use SoftDeletes;
+
   protected $table = "games";
 
   public function p1_name(){

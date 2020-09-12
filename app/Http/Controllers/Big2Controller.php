@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Scores;
 use App\Games;
+Use Carbon\Carbon;
 
 
 class Big2Controller extends Controller
@@ -19,6 +20,8 @@ class Big2Controller extends Controller
     $my_id = Auth::user()->id;
     $game_id = $game->id;
     $owner = $my_id == $game->fkey_user_id;
+
+    $cumulative_scoring = $game->cumulative_scoring;
 
     $players_keys = [];
     $players = [];
@@ -40,7 +43,7 @@ class Big2Controller extends Controller
     }
 
 
-    return view("big_2/game", compact("my_id", "owner", "game_id", "players", "player_number", "players_keys", "game_name"));
+    return view("big_2/game", compact("my_id", "owner", "game_id", "players", "player_number", "players_keys", "game_name", "cumulative_scoring"));
   }
 
   //shuffles deck of cards
@@ -103,6 +106,8 @@ class Big2Controller extends Controller
     $new_game->fkey_p3_id = $request->p3;
     $new_game->fkey_p4_id = $request->p4;
 
+    $new_game->cumulative_scoring = $request->cumulative_scoring == "true";
+
 
     $new_game->save();
 
@@ -156,8 +161,39 @@ class Big2Controller extends Controller
 
   public function get_scores(Request $request){
     $scores = Scores::select("p1_score", "p2_score", "p3_score", "p4_score")->where("fkey_game_id", $request->game_id)->get()->toArray();
+
     return response()->json(array("scores" => $scores));
 
+  }
+
+  public function edit_game(Request $request){
+    $game = Games::where("id", $request->id)->first();
+    if($game->fkey_user_id == Auth::user()->id){
+      //User is owner of game
+      if($request->cumulative_scoring == "true"){
+        $game->cumulative_scoring = 1;
+      }
+      else{
+        $game->cumulative_scoring = 0;
+      }
+      $game->save();
+    }
+
+
+    return redirect("my_games");
+  }
+
+  public function delete_game(Request $request){
+    $game = games::where("id", $request->id)->first();
+
+    if($game->fkey_user_id == Auth::user()->id){
+      //User is owner of game
+      $game->delete();
+
+    }
+
+
+    return redirect("my_games");
   }
 
 }

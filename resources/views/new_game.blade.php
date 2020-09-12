@@ -4,6 +4,10 @@
   New Game
 @endsection
 
+@section("head")
+<link rel="stylesheet" type="text/css" href="/css/fancy_check_box.css">
+@endsection
+
 @section("css")
 
 <style>
@@ -55,6 +59,9 @@ label:after{
   font-size: 14pt;
   display: none;
 }
+
+
+
 
 </style>
 
@@ -169,6 +176,13 @@ $("#game_name").keyup(function(){
         <input class="player" type="text" id="p4" autocomplete="off">
         <input id="p4_val" type="hidden" name="p4">
       </div>
+      <div class="form-check">
+        <label class="scoring_box">Use Cumulative Scoring
+          <input type="checkbox" name="cumulative_scoring" value="true">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div></div>
 
 
     <a id="submit_form"><i class="far fa-sticky-note"></i> Create Game</a>

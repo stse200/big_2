@@ -91,7 +91,6 @@ function check_new_round(just_passed){
 //POST: displays "passed" under the appropriate player.
 function show_pass(just_passed){
     passes += 1;
-    console.log("#p_pass_" + just_passed);
     $("#p_pass_" + just_passed).css("opacity", "1");
 
 }
@@ -194,7 +193,6 @@ function get_first_player(){
       }
       if(curr_turn == my_id){
         //I go first
-        console.log(curr_turn);
         $("#action_buttons").css("opacity", "1");
       }
       else{
@@ -239,27 +237,45 @@ $("#show_scorecard").on("click", function(){
             //ASSERT: double score
             multi = 2;
           }
+          //set score
           if(j != winner){
-            print_scores[j] = curr_scores[j] * multi;
+            print_scores[j] -= curr_scores[j] * multi;
+
+            //do cumulative scoring
+            if((cumulative_scoring)){
+              for(var k = 0; k < 4; k++){
+                if((k != winner) && (k != j)){
+                  //adding score to other players
+                  print_scores[k] += curr_scores[j];
+                  print_scores[j] -= curr_scores[j];
+                }
+              }
+            }
           }
-            print_scores[winner] += curr_scores[j] * multi;
+          //add score to winner's score
+          print_scores[winner] += curr_scores[j] * multi;
         }
+
         //print scores;
         for(var j = 0; j < 4; j++){
           //show score on scorecard
 
+          if(curr_scores[j] == 0){
+            curr_scores[j] = "OUT";
+          }
+
           if(j == winner){
-            html += "<span class=\"winner\">+" + print_scores[j] + "</span>";
+            html += "<span class=\"winner\">" + print_scores[j] + "(" + curr_scores[j] + ")" + "</span>";
           }
           else{
-            html += "<span class=\"looser\">-" + print_scores[j] + "</span>";
+            html += "<span class=\"looser\">" + print_scores[j] + "(" + curr_scores[j] + ")" + "</span>";
           }
 
           //subtract point
-          running_scores[j] -= print_scores[j];
+          running_scores[j] += print_scores[j];
 
           //add to winner
-          running_scores[winner] += print_scores[j];
+          // running_scores[winner] += print_scores[j];
         }
         html += "</div><hr>";
 
